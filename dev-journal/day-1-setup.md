@@ -1,0 +1,5 @@
+- Understanding the requirements of the project.
+- Setting up github.
+- Setting up the tools that will be using.
+- Watched node.js tutorial.
+- Trying to setup server.

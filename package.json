@@ -1,0 +1,22 @@
+{
+  "name": "dgtracker",
+  "version": "1.0.0",
+  "description": "This is a personal project for small construction firm",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --env-file=.env server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jjeroam/DGTracker.git"
+  },
+  "author": "Jerome De Guzman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jjeroam/DGTracker/issues"
+  },
+  "homepage": "https://github.com/jjeroam/DGTracker#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
