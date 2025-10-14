@@ -33,3 +33,6 @@ Below are the features that I want to implement to this project:
         -  Quick navigation to all modules.
 
 *Note that I used GPT Mentor here to act like my project manager since I don't have any experince in real world web development.
+
+
+*Note that I'm also doing this with some help of ChatGPT.
