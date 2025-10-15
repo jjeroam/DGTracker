@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This is a personal project for small construction firm",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon --env-file=.env server.js"
   },
