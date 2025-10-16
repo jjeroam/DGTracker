@@ -7,5 +7,29 @@
   </head>
   <body>
     <h1>Finances</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Project Name</th>
+          <th>Budget</th>
+          <th>Balance</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="finance-table-body">
+        <tr>
+          <th>${projectName}</th>
+          <th>${budget}</th>
+          <th>${balance}</th>
+          <th>${status}</th>
+          <th>
+            <button class="view">View</button>
+            <button class="download">Download</button>
+            <button class="delete">Delete</button>
+          </th>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>

@@ -6,6 +6,73 @@
     <title>Dashboard</title>
   </head>
   <body>
-    <h1>Dashboard</h1>
+    <div class="header">
+      <h3>Dashboard</h3>
+    </div>
+    <div class="proj-overview">
+      <h3>Project Overview</h3>
+      <list>
+        <li>Total Project: ${totalProject}</li>
+        <li>Ongoing: ${onGoing}</li>
+        <li>Completed: ${completedProject}</li>
+        <li>Delayed: ${delayedProject}</li>
+        <li>
+          <a href="projects.html">view all projects</a>
+        </li>
+      </list>
+    </div>
+    <div class="finance-overview">
+      <h3>Financial Snapchat</h3>
+      <list>
+        <li>Total Budget: ${totalBudget}</li>
+        <li>Total Expenses: ${totalExpenses}</li>
+        <li>Remaining: ${remaining}</li>
+        <li>Top Project: ${topProject}</li>
+        <li>
+          <a href="finances.html">view all</a>
+        </li>
+      </list>
+    </div>
+    <div class="employee-overview">
+      <h3>Employee Summary</h3>
+      <list>
+        <li>Total Employees: ${totalEmployees}</li>
+        <li>Architects: ${totalArchitects}</li>
+        <li>Engineers: ${totalEngineers}</li>
+        <li>Field Staffs: ${totalStaff}</li>
+        <li>
+          <a href="employees.html">view all</a>
+        </li>
+      </list>
+    </div>
+    <div class="deadlines">
+      <h3>Upcoming Deadlines</h3>
+      <list>
+        <li>${task}: ${dateTask}}</li>
+        <li>${task}: ${dateTask}}</li>
+        <li>${task}: ${dateTask}}</li>
+        <li>
+          <a href="#">view calendar</a>
+        </li>
+      </list>
+    </div>
+    <div class="documents-overview">
+      <h3>Document Alerts</h3>
+      <list>
+        <li>${documentTask}</li>
+        <li>${documentTask}</li>
+        <li>
+          <a href="documents.html">view all documents</a>
+        </li>
+      </list>
+    </div>
+    <div class="recent-activities">
+      <h3>Recent Activity</h3>
+      <list>
+        <li>${latestActivity}</li>
+        <li>${latestActivity}</li>
+        <li>${latestActivity}</li>
+      </list>
+    </div>
   </body>
 </html>
