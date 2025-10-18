@@ -6,10 +6,15 @@ import finances from "./src/routes/financeRoutes.js";
 import projects from "./src/routes/projectRoutes.js";
 import documents from "./src/routes/documentRoutes.js";
 import connectDB from "./src/config/db.js";
+import { fileURLToPath } from 'url'
 
 const PORT = process.env.PORT;
 const app = express();
-// app.use(express.static(path.join(__dirname, "public")));
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, "public")));
 
 // Middleware to parse JSON bodies
 app.use(express.json());

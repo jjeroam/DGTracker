@@ -7,5 +7,5 @@ const employeeSchema = new mongoose.Schema({
   salary: Number,
 });
 
-const employee = mongoose.model("Employee", employeeSchema, "employees_list"); // 'Employee' is the model name
-export default employee;
+const employees = mongoose.model("Employee", employeeSchema, "employees_list"); // 'Employee' is the model name
+export default employees;

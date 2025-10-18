@@ -1,59 +1,77 @@
-import employee from "../models/employeeModel.js";
+import employees from "../models/employeeModel.js";
 
-export const getEmployees = async (req, res) => {
-  try {
-    const employees = await employee.find();
-    res.status(200).json(employees);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+// @dsc GET all emplyees
+// @route GET /employees
+export const getEmployees = (req, res) => {
+  const limit = parseInt(req.query.limit);
+  if (!isNaN(limit) && limit > 0) {
+    return res.status(200).json(employees.slice(0, limit));
   }
+
+  res.status(200).json(employees);
 };
 
-export const getEmployeeById = async (req, res) => {
-  try {
-    const emp = await employee.findById(req.params.id);
-    if (!emp) {
-      return res.status(404).json({ message: "Employee not found" });
-    }
-    res.status(200).json(emp);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+// @dsc GET employee by id
+// @ route GET /employees/:id
+export const getEmployeeById = (req, res) => {
+  let newEmployee = {
+    id: employees.length + 1,
+    name: req.body.name,
+    position: req.body.position,
+  };
+
+  if (!newEmployee.name || !newEmployee.position) {
+    return res.status(400).json({ msg: "Please include name and position" });
   }
+
+  employees.push(newEmployee);
+  res.status(201).json(newEmployee);
 };
-export const createEmployee = async (req, res) => {
-  try {
-    const newEmployee = new employee(req.body);
-    const savedEmployee = await newEmployee.save();
-    res.status(201).json(savedEmployee);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+
+// @dsc POST create new employee
+// @route POST /employees
+export const createEmployee = (req, res) => {
+  let newEmployee = {
+    id: employees.length + 1,
+    name: req.body.name,
+    position: req.body.position,
+  };
+
+  if (!newEmployee.name || !newEmployee.position) {
+    return res.status(400).json({ msg: "Please include name and position" });
   }
+
+  employees.push(newEmployee);
+  res.status(201).json(newEmployee);
 };
-export const updateEmployee = async (req, res) => {
-  try {
-    const updatedEmployee = await employee.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    if (!updatedEmployee) {
-      return res.status(404).json({ message: "Employee not found" });
-    }
-    res.status(200).json(updatedEmployee);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+
+// @dsc PUT employee by id
+// @route PUT /employees/:id
+export const updateEmployee = (req, res) => {
+  const id = parseInt(req.params.id);
+  const employee = employees.find((employee) => employee.id === id);
+
+  if (!employee) {
+    return res.status(404).json({ msg: `Employee ${id} not found` });
   }
+
+  employee.name = req.body.name;
+  employee.position = req.body.position;
+  res.status(200).json(employee);
 };
-export const deleteEmployee = async (req, res) => {
-  try {
-    const deletedEmployee = await employee.findByIdAndDelete(req.params.id);
-    if (!deletedEmployee) {
-      return res.status(404).json({ message: "Employee not found" });
-    }
-    res.status(200).json({ message: "Employee deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+
+// @dsc DELETE employee by id
+// @route DELETE /employee/:id
+export const deleteEmployee = (req, res) => {
+  const id = parseInt(req.params.id);
+  const employee = employees.find((employee) => employee.id === id);
+
+  if (!employee) {
+    return res.status(404).json({ msg: `Employee ${id} not found` });
   }
+
+  employees = employees.filter((employee) => employee.id !== id);
+  res.status(200).json(employees);
 };
 
 export const updatedEmployee = updateEmployee;
