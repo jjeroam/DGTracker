@@ -30,13 +30,13 @@ export const getProjectById = async (req, res) => {
 
 export const createProject = async (req, res) => {
   try {
-    // Find the last employee by employeeId in descending order
+    // Find the last project by projectId in descending order
     const lastProject = await projects.findOne().sort({ projectId: -1 });
 
     // If there’s one, add +1; otherwise start at 1
     const nextId = lastProject ? lastProject.projectId + 1 : 1;
 
-    // Create a new employee using the next ID
+    // Create a new project using the next ID
     const newProject = await projects.create({
       projectId: nextId,
       name: req.body.name,
@@ -70,8 +70,8 @@ export const updateProject = async (req, res) => {
   }
 };
 
-// @dsc DELETE employee by id
-// @route DELETE /employee/:id
+// @dsc DELETE project by id
+// @route DELETE /projects/:id
 
 export const deleteProject = async (req, res) => {
   try {

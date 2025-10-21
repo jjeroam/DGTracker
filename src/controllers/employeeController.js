@@ -67,7 +67,7 @@ export const getEmployeeById = async (req, res) => {
 // @route POST /employees
 
 export const createEmployee = async (req, res) => {
-    try {
+  try {
     // Find the last employee by employeeId in descending order
     const lastEmployee = await employees.findOne().sort({ employeeId: -1 });
 
@@ -79,11 +79,11 @@ export const createEmployee = async (req, res) => {
       employeeId: nextId,
       name: req.body.name,
       position: req.body.position,
-      salary: req.body.salary
+      salary: req.body.salary,
+      location: req.body.location,
     });
 
     res.status(200).json(newEmployee);
-
   } catch (error) {
     console.error("Error creating employee:", error);
     res.status(500).json({ msg: error.message });
@@ -119,11 +119,11 @@ export const createEmployee = async (req, res) => {
 
 export const updateEmployee = async (req, res) => {
   try {
-      const { id } = req.params;
-      const employee = await employees.findByIdAndUpdate(id, req.body);
-      if (!employee) {
-        return res.status(404).json({ msg: `Employee ${id} not found` });
-      }
+    const { id } = req.params;
+    const employee = await employees.findByIdAndUpdate(id, req.body);
+    if (!employee) {
+      return res.status(404).json({ msg: `Employee ${id} not found` });
+    }
 
     const updatedEmployee = await employees.findById(id);
     res.status(200).json(updatedEmployee);
@@ -150,16 +150,16 @@ export const updateEmployee = async (req, res) => {
 
 export const deleteEmployee = async (req, res) => {
   try {
-      const { id } = req.params;
-      const employee = await employees.findByIdAndDelete(id);
-      if (!employee) {
-        res.status(404).json({msg: `Employee ${id} not found`})
-      }
-      res.status(200).json(employees);
+    const { id } = req.params;
+    const employee = await employees.findByIdAndDelete(id);
+    if (!employee) {
+      res.status(404).json({ msg: `Employee ${id} not found` });
+    }
+    res.status(200).json(employees);
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
-}
+};
 
 // export const deleteEmployee = (req, res) => {
 //   const id = parseInt(req.params.id);
