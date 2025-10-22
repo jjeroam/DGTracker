@@ -14,14 +14,22 @@ async function loadEmployees() {
     data.forEach((employee) => {
       const row = document.createElement("tr");
       row.innerHTML = `
-                <td class="tbl-contents">${employee.employeeId}</td>
-                <td class="tbl-contents">${employee.name}</td>
-                <td class="tbl-contents">${employee.position}</td>
-                <td class="tbl-contents">${employee.salary}</td>
-                <td class="tbl-contents">${employee.location}</td>
-                <button type="button" class="edit-btn btn btn-success tbl-contents">Edit</button>
-                <button type="button" class="delete-btn btn btn-danger tbl-contents">Delete</button>
+                <td class="tbl-contents w-10">${employee.employeeId}</td>
+                <td class="tbl-contents w-25">${employee.name}</td>
+                <td class="tbl-contents w-10">${employee.position}</td>
+                <td class="tbl-contents w-10">${employee.salary}</td>
+                <td class="tbl-contents w-auto">${employee.location}</td>  
+                <td>
+                  <button type="button" class="view-btn btn btn-primary tbl-contents">View</button>
+                  <button type="button" class="edit-btn btn btn-success tbl-contents">Edit</button>
+                  <button type="button" class="delete-btn btn btn-danger tbl-contents">Delete</button>
+                </td>
             `;
+      row.querySelector(".view-btn").onclick = () => viewEmployee(employee);
+      row.querySelector(".edit-btn").onclick = () => editEmployee(employee);
+      row.querySelector(".delete-btn").onclick = () =>
+        deleteEmployee(employee.id);
+
       tableBody.appendChild(row);
     });
   } catch (error) {
@@ -30,3 +38,63 @@ async function loadEmployees() {
 }
 
 loadEmployees();
+
+function openEmployeeForm() {
+  document.getElementById("popupForm").style.display = "flex";
+}
+
+function closeEmployeeForm() {
+  document.getElementById("popupForm").style.display = none;
+}
+
+window.onclick = function (event) {
+  const popup = document.getElementById("popupForm");
+  if (event.target === popup) {
+    popup.style.display = "none";
+  }
+};
+
+document
+  .getElementById("employeeForm")
+  .addEventListener("submit", async (e) => {
+    e.preventDefault(); // prevent page refresh
+
+    // Collect form data
+    const employeeData = {
+      name: document.getElementById("name").value,
+      position: document.getElementById("position").value,
+      salary: document.getElementById("salary").value,
+    };
+
+    try {
+      const response = await fetch("http://localhost:8000/employees", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(employeeData),
+      });
+
+      if (response.ok) {
+        alert("Employee added successfully!");
+        document.getElementById("employeeForm").reset();
+      } else {
+        alert("Error adding employee");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  });
+
+function viewEmployee(emp) {
+  document.getElementById("popupForm").style.display = "flex";
+}
+
+function editEmployee(emp) {
+  document.getElementById("editPopup").style.display = "flex";
+}
+
+function deleteEmployee(id) {
+  if (confirm("Are you sure you want to delete this employee?")) {
+    alert(`Employee with ID ${id} deleted`);
+    // You can also send a DELETE request here to your backend
+  }
+}

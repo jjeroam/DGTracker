@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5rem;
+  padding: 0rem 10em;
 }
 
 .btn {
@@ -12,3 +12,34 @@
 .tbl-contents {
   text-align: center;
 }
+
+/* .table {
+  background-color: beige;
+} */
+
+.navbar {
+  margin: 5rem 10rem 1rem 10rem;
+}
+
+    .popup {
+      display: none; /* hidden by default */
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* The popup box */
+    .popup-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }

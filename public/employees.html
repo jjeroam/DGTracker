@@ -16,31 +16,79 @@
   </head>
   <body>
     <header>
-        <div class="row d-flex bd-highlight">
-          <h1 class="col-sm p-2 flex-grow-1 bd-highligh">Employees</h1>
-          <input type="text p-2 bd-highlight" class="col-sm"/>
-          <button id="search-btn p-2 bd-highlight" class="col-sm">search</button>
+      <h1 class="">Employees</h1>
+      <div class="navbar navbar-light">
+        <button onclick="openEmployeeForm()" class="navbar-brand btn btn-light">Add Employee</button>
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
         </div>
           <!--search bar will be implemented here -->
       </header>
-        <button id="addEmployees">Add Employee</button>
         <!-- pop-up form will appear here -->
+        <div id="popupForm" class="popup">
+          <div class="popup-content">
+            <span class="close-btn" onclick="closeEmployeeForm()">&times;</span>
+            <h3>New Employee</h3>
+            <form id="employeeForm">
+            <label>Name:</label><br>
+            <input type="text" id="name" required><br><br>
+
+            <label>Position:</label><br>
+            <input type="text" id="position" required><br><br>
+
+            <label>Salary:</label><br>
+            <input type="number" id="salary" required><br><br>
+
+            <button type="submit">Save</button>
+      </form>
+    </div>
+  </div>
       </div>
     </div>
     <div class="table-container">
-      <table id="employeeTable" class="table">
+      <table id="employeeTable" class="table table-striped">
         <thead class="thead-dark">
           <tr>
-            <th scope="col" class="tbl-contents">Employee ID</th>
-            <th scope="col" class="tbl-contents">Name</th>
-            <th scope="col" class="tbl-contents">Position</th>
-            <th scope="col" class="tbl-contents">Salary</th>
-            <th scope="col" class="tbl-contents">Location</th>
+            <th scope="col" class="tbl-contents w-20">Employee ID</th>
+            <th scope="col" class="tbl-contents w-25">Name</th>
+            <th scope="col" class="tbl-contents w-20">Position</th>
+            <th scope="col" class="tbl-contents w-15">Salary</th>
+            <th scope="col" class="tbl-contents w-25">Location</th>
+            <th scope="col" class="tbl-contents w-20"></th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+        </tbody>
       </table>
     </div>
-    <script type="module" src="/js/employees.js"></script>
+
+    <!-- Edit Employee popup -->
+
+        <div id="editPopup" class="popup">
+          <div class="popup-content">
+            <span class="close-btn" onclick="closeEditEmployeeForm()">&times;</span>
+            <h3>Edit Employee</h3>
+            <form id="employeeForm">
+                <label>Name:</label><br>
+                <input type="text" id="name" required><br><br>
+
+                <label>Position:</label><br>
+                <input type="text" id="position" required><br><br>
+
+                <label>Salary:</label><br>
+                <input type="number" id="salary" required><br><br>
+                
+                <label>Location:</label><br>
+                <input type="text" id="location" required><br><br>
+
+                <button type="submit">Save</button>
+            </form>
+          </div>
+        </div>
+
+    
+    <script src="/js/employees.js" ></script>
   </body>
 </html>
