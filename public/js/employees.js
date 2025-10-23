@@ -25,10 +25,10 @@ async function loadEmployees() {
                   <button type="button" class="delete-btn btn btn-danger tbl-contents">Delete</button>
                 </td>
             `;
-      row.querySelector(".view-btn").onclick = () => viewEmployee(employee);
-      row.querySelector(".edit-btn").onclick = () => editEmployee(employee);
+      row.querySelector(".view-btn").onclick = () => viewEmployee(employee._id);
+      row.querySelector(".edit-btn").onclick = () => editEmployee(employee._id);
       row.querySelector(".delete-btn").onclick = () =>
-        deleteEmployee(employee.id);
+        deleteEmployee(employee._id);
 
       tableBody.appendChild(row);
     });
@@ -84,12 +84,38 @@ document
     }
   });
 
-function viewEmployee(emp) {
-  document.getElementById("popupForm").style.display = "flex";
+// view employee details
+async function viewEmployee(id) {
+  try {
+    const res = await fetch(`http://localhost:8000/employees/${id}`);
+    const data = await res.json();
+
+    // Fill the popup fields with employee data
+    document.getElementById("viewId").textContent = data._id;
+    document.getElementById("viewName").textContent = data.name;
+    document.getElementById("viewPosition").textContent = data.position;
+    document.getElementById("viewSalary").textContent = data.salary;
+    document.getElementById("viewEmail").textContent = data.email || "N/A";
+
+    // Show the popup
+    document.getElementById("viewEmployeePopup").style.display = "flex";
+  } catch (error) {
+    console.error("Error loading employee:", error);
+  }
 }
 
-function editEmployee(emp) {
+// Close popup
+function closeViewPopup() {
+  document.getElementById("viewEmployeePopup").style.display = "none";
+}
+
+// edit employee details
+function editEmployee() {
   document.getElementById("editPopup").style.display = "flex";
+}
+
+function closeEditEmployeeForm() {
+  document.getElementById("editPopup").style.display = none;
 }
 
 function deleteEmployee(id) {

@@ -64,11 +64,26 @@
       </table>
     </div>
 
+<!-- View Employee Popup -->
+    <div id="viewEmployeePopup" class="popup">
+      <div class="popup-content">
+        <span class="close-btn" onclick="closeViewPopup()">&times;</span>
+        <h3>Employee Details</h3>
+        <div id="viewDetails">
+          <p><strong>ID:</strong> <span id="viewId"></span></p>
+          <p><strong>Name:</strong> <span id="viewName"></span></p>
+          <p><strong>Position:</strong> <span id="viewPosition"></span></p>
+          <p><strong>Salary:</strong> <span id="viewSalary"></span></p>
+          <p><strong>Email:</strong> <span id="viewEmail"></span></p>
+        </div>
+      </div>
+    </div>
+
     <!-- Edit Employee popup -->
 
         <div id="editPopup" class="popup">
           <div class="popup-content">
-            <span class="close-btn" onclick="closeEditEmployeeForm()">&times;</span>
+            <span class="close-btn" onclick="closeEmployeeForm()">&times;</span>
             <h3>Edit Employee</h3>
             <form id="employeeForm">
                 <label>Name:</label><br>
