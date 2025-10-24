@@ -79,24 +79,18 @@
       </div>
     </div>
 
-    <!-- Edit Employee popup -->
+    <!-- Edit Employee popup --> 
 
         <div id="editPopup" class="popup">
           <div class="popup-content">
             <span class="close-btn" onclick="closeEmployeeForm()">&times;</span>
             <h3>Edit Employee</h3>
-            <form id="employeeForm">
-                <label>Name:</label><br>
-                <input type="text" id="name" required><br><br>
-
-                <label>Position:</label><br>
-                <input type="text" id="position" required><br><br>
-
-                <label>Salary:</label><br>
-                <input type="number" id="salary" required><br><br>
-                
-                <label>Location:</label><br>
-                <input type="text" id="location" required><br><br>
+            <form id="editEmployeeForm" onsubmit="updateEmployee(event, currentEmployeeId)">
+                <p><strong>ID:</strong> <span id="viewId"></span></p>
+                <p><strong>Name:</strong> <input type="text" id="editName" placeholder=""></p>
+                <p><strong>Position:</strong> <input type="text" id="editPosition" placeholder=""></p>
+                <p><strong>Salary:</strong> <input type="number" id="editSalary" placeholder=""></p>
+                <!-- <p><strong>Email:</strong> <input type="email" id="editEmail" placeholder=""></p> -->
 
                 <button type="submit">Save</button>
             </form>

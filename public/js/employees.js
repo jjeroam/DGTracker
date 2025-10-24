@@ -89,7 +89,6 @@ async function viewEmployee(id) {
   try {
     const res = await fetch(`http://localhost:8000/employees/${id}`);
     const data = await res.json();
-
     // Fill the popup fields with employee data
     document.getElementById("viewId").textContent = data._id;
     document.getElementById("viewName").textContent = data.name;
@@ -110,8 +109,47 @@ function closeViewPopup() {
 }
 
 // edit employee details
-function editEmployee() {
-  document.getElementById("editPopup").style.display = "flex";
+let currentEmployeeId = null;
+
+async function editEmployee(id) {
+  currentEmployeeId = id;
+
+  try {
+    const response = await fetch(`http://localhost:8000/employees/${id}`);
+    const employee = await response.json();
+
+    document.getElementById("editName").value = employee.name;
+    document.getElementById("editPosition").value = employee.position;
+    document.getElementById("editSalary").value = employee.salary;
+
+    document.getElementById("editPopup").style.display = "flex";
+  } catch (error) {
+    console.error("Error loading employee:", error);
+  }
+}
+async function updateEmployee(event, id) {
+  event.preventDefault();
+
+  const name = document.getElementById("editName").value;
+  const position = document.getElementById("editPosition").value;
+  const salary = document.getElementById("editSalary").value;
+
+  try {
+    const response = await fetch(`http://localhost:8000/employees/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, position, salary }),
+    });
+
+    if (response.ok) {
+      alert("Employee updated successfully!");
+      document.getElementById("editPopup").style.display = "none";
+    } else {
+      alert("Failed to update employee.");
+    }
+  } catch (error) {
+    console.error("Error updating employee:", error);
+  }
 }
 
 function closeEditEmployeeForm() {
