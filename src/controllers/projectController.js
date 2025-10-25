@@ -37,13 +37,15 @@ export const createProject = async (req, res) => {
     const nextId = lastProject ? lastProject.projectId + 1 : 1;
 
     // Create a new project using the next ID
-    const newProject = await projects.create({
+    const newProject = await projects({
       projectId: nextId,
       name: req.body.name,
-      client: req.body.client,
+      client: req.body.client,  
       status: req.body.status,
       budget: req.body.budget,
     });
+
+    await newProject.save();
 
     res.status(200).json(newProject);
   } catch (error) {
@@ -58,7 +60,9 @@ export const createProject = async (req, res) => {
 export const updateProject = async (req, res) => {
   try {
     const { id } = req.params;
-    const project = await projects.findByIdAndUpdate(id, req.body);
+    const project = await projects.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
     if (!project) {
       return res.status(404).json({ msg: `Project ${id} not found` });
     }
