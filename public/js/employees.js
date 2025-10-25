@@ -156,9 +156,22 @@ function closeEditEmployeeForm() {
   document.getElementById("editPopup").style.display = none;
 }
 
-function deleteEmployee(id) {
+async function deleteEmployee(id) {
   if (confirm("Are you sure you want to delete this employee?")) {
-    alert(`Employee with ID ${id} deleted`);
-    // You can also send a DELETE request here to your backend
+    try {
+      const response = await fetch(`http://localhost:8000/employees/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        alert("Employee deleted successfully!");
+        // Reload or refresh table data
+        loadEmployees();
+      } else {
+        alert("Failed to delete employee.");
+      }
+    } catch (error) {
+      console.error("Error deleting employee:", error);
+    }
   }
 }
