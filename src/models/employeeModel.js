@@ -5,8 +5,8 @@ const employeeSchema = new mongoose.Schema({
   name: String,
   position: String,
   salary: Number,
-  location: String,
+  location: [{ type: mongoose.Schema.Types.ObjectId, ref: "projects" }],
 });
 
-const employees = mongoose.model("Employee", employeeSchema, "employees"); // 'Employee' is the model name
+const employees = mongoose.model("employees", employeeSchema, "employees"); // 'Employee' is the model name
 export default employees;

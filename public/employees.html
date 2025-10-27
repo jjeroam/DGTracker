@@ -29,7 +29,7 @@
         <!-- pop-up form will appear here -->
         <div id="popupForm" class="popup">
           <div class="popup-content">
-            <span class="close-btn" onclick="closeEmployeeForm()">&times;</span>
+            <span class="close-btn" onclick="closePopup()">&times;</span>
             <h3>New Employee</h3>
             <form id="employeeForm">
             <label>Name:</label><br>
@@ -40,6 +40,9 @@
 
             <label>Salary:</label><br>
             <input type="number" id="salary" required><br><br>
+            
+            <label>Location:</label><br>
+            <input type="text" id="location"><br><br>
 
             <button type="submit">Save</button>
       </form>
@@ -48,15 +51,16 @@
       </div>
     </div>
     <div class="table-container">
-      <table id="projectTable" class="table table-striped">
+      <table id="employeeTable" class="table table-striped">
         <thead class="thead-dark">
           <tr>
-            <!-- <th scope="col" class="tbl-contents w-20">Project ID</th> -->
-            <th scope="col" class="tbl-contents w-25">Name</th>
-            <th scope="col" class="tbl-contents w-20">Client</th>
-            <th scope="col" class="tbl-contents w-15">Status</th>
-            <th scope="col" class="tbl-contents w-25">Budget</th>
-            <th scope="col" class="tbl-contents w-20"></th>
+            <!-- <th scope="col" class="tbl-contents w-20">Employee ID</th> -->
+            <th scope="col" class="tbl-contents">Employee ID</th>
+            <th scope="col" class="tbl-contents">Name</th>
+            <th scope="col" class="tbl-contents">Position</th>
+            <th scope="col" class="tbl-contents">Rate</th>
+            <th scope="col" class="tbl-contents">Location</th>
+            <th scope="col" class="tbl-contents"></th>
           </tr>
         </thead>
         <tbody>
@@ -67,14 +71,15 @@
 <!-- View Employee Popup -->
     <div id="viewEmployeePopup" class="popup">
       <div class="popup-content">
-        <span class="close-btn" onclick="closeViewPopup()">&times;</span>
+        <span class="close-btn" onclick="closePopup()">&times;</span>
         <h3>Employee Details</h3>
         <div id="viewDetails">
-          <p><strong>ID:</strong> <span id="viewId"></span></p>
+          <!-- <p><strong>ID:</strong> <span id="viewId"></span></p> -->
           <p><strong>Name:</strong> <span id="viewName"></span></p>
-          <p><strong>Client:</strong> <span id="viewClient"></span></p>
-          <p><strong>Status:</strong> <span id="viewStatus"></span></p>
-          <p><strong>Budget:</strong> <span id="viewBudget"></span></p>
+          <p><strong>Position:</strong> <span id="viewPosition"></span></p>
+          <p><strong>Rate:</strong> <span id="viewSalary"></span></p>
+          <p><strong>Email:</strong> <span id="viewEmail"></span></p>
+          <p><strong>Location:</strong> <span id="viewLocation"></span></p>
         </div>
       </div>
     </div>
@@ -83,20 +88,19 @@
 
         <div id="editPopup" class="popup">
           <div class="popup-content">
-            <span class="close-btn" onclick="closeProjectForm()">&times;</span>
+            <span class="close-btn" onclick="closePopup()">&times;</span>
             <h3>Edit Employee</h3>
-            <form id="editProjectForm" onsubmit="updateProject(event, currentProjectId)">
+            <form id="editEmployeeForm" onsubmit="updateEmployee(event, currentEmployeeId)">
                 <p><strong>ID:</strong> <span id="viewId"></span></p>
                 <p><strong>Name:</strong> <input type="text" id="editName" placeholder=""></p>
-                <p><strong>Client:</strong> <input type="text" id="editClient" placeholder=""></p>
-                <p><strong>Status:</strong> <input type="text" id="editStatus" placeholder=""></p>
-                <p><strong>Budget:</strong> <input type="number" id="editBudget" placeholder=""></p>
+                <p><strong>Position:</strong> <input type="text" id="editPosition" placeholder=""></p>
+                <p><strong>Salary:</strong> <input type="text" id="editSalary" placeholder=""></p>
+                <p><strong>Location:</strong> <select id="location" onclick="loadProjects()"></select></p>
 
                 <button type="submit">Save</button>
             </form>
           </div>
         </div>
-
     
     <script src="/js/employees.js" ></script>
   </body>

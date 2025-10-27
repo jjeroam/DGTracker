@@ -90,4 +90,20 @@ export const deleteProject = async (req, res) => {
   }
 };
 
+export const connectEmployees = async (req, res) =>{
+  try {
+    // Find the project and populate its employees
+    const project = await projects.findById(req.params.id).populate("employees");
+
+    if (!project) {
+      return res.status(404).json({ msg: "Project not found" });
+    }
+
+    res.status(200).json(project.employees);
+  } catch (error) {
+    console.error("Error fetching project employees:", error);
+    res.status(500).json({ msg: error.message });
+  }
+};
+
 export const updatedProject = updateProject;

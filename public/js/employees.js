@@ -18,7 +18,7 @@ async function loadEmployees() {
                 <td class="tbl-contents w-25">${employee.name}</td>
                 <td class="tbl-contents w-10">${employee.position}</td>
                 <td class="tbl-contents w-10">${employee.salary}</td>
-                <td class="tbl-contents w-auto">${employee.location}</td>  
+                <td class="tbl-contents w-auto">${employee.location}</td>
                 <td>
                   <button type="button" class="view-btn btn btn-primary tbl-contents">View</button>
                   <button type="button" class="edit-btn btn btn-success tbl-contents">Edit</button>
@@ -43,10 +43,6 @@ function openEmployeeForm() {
   document.getElementById("popupForm").style.display = "flex";
 }
 
-function closeEmployeeForm() {
-  document.getElementById("popupForm").style.display = none;
-}
-
 window.onclick = function (event) {
   const popup = document.getElementById("popupForm");
   if (event.target === popup) {
@@ -64,6 +60,7 @@ document
       name: document.getElementById("name").value,
       position: document.getElementById("position").value,
       salary: document.getElementById("salary").value,
+      location: document.getElementById("location").value,
     };
 
     try {
@@ -90,10 +87,11 @@ async function viewEmployee(id) {
     const res = await fetch(`http://localhost:8000/employees/${id}`);
     const data = await res.json();
     // Fill the popup fields with employee data
-    document.getElementById("viewId").textContent = data._id;
+    // document.getElementById("viewId").textContent = data._id;
     document.getElementById("viewName").textContent = data.name;
     document.getElementById("viewPosition").textContent = data.position;
     document.getElementById("viewSalary").textContent = data.salary;
+    document.getElementById("viewLocation").textContent = data.location;
     document.getElementById("viewEmail").textContent = data.email || "N/A";
 
     // Show the popup
@@ -101,11 +99,6 @@ async function viewEmployee(id) {
   } catch (error) {
     console.error("Error loading employee:", error);
   }
-}
-
-// Close popup
-function closeViewPopup() {
-  document.getElementById("viewEmployeePopup").style.display = "none";
 }
 
 // edit employee details
@@ -121,24 +114,27 @@ async function editEmployee(id) {
     document.getElementById("editName").value = employee.name;
     document.getElementById("editPosition").value = employee.position;
     document.getElementById("editSalary").value = employee.salary;
+    // document.getElementById("editLocation").value = employee.location;
 
     document.getElementById("editPopup").style.display = "flex";
   } catch (error) {
     console.error("Error loading employee:", error);
   }
 }
+
 async function updateEmployee(event, id) {
   event.preventDefault();
 
   const name = document.getElementById("editName").value;
   const position = document.getElementById("editPosition").value;
   const salary = document.getElementById("editSalary").value;
+  const location = document.getElementById("editLocation").value;
 
   try {
     const response = await fetch(`http://localhost:8000/employees/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, position, salary }),
+      body: JSON.stringify({ name, position, salary, location }),
     });
 
     if (response.ok) {
@@ -150,10 +146,6 @@ async function updateEmployee(event, id) {
   } catch (error) {
     console.error("Error updating employee:", error);
   }
-}
-
-function closeEditEmployeeForm() {
-  document.getElementById("editPopup").style.display = none;
 }
 
 async function deleteEmployee(id) {
@@ -175,3 +167,32 @@ async function deleteEmployee(id) {
     }
   }
 }
+
+// Close popup
+function closePopup() {
+  document.getElementById("viewEmployeePopup").style.display = "none";
+  document.getElementById("editPopup").style.display = "none";
+  document.getElementById("popupForm").style.display = "none";
+}
+
+async function loadProjects() {
+  try {
+    const response = await fetch("http://localhost:8000/projects");
+    const projects = await response.json();
+
+    const select = document.getElementById("location");
+    select.innerHTML = "<option value=''>Select Project</option>";
+
+    projects.forEach((project) => {
+      const option = document.createElement("option");
+      option.value = project._id; // store ObjectId
+      option.textContent = project.name; // show readable name
+      select.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Error loading projects:", error);
+  }
+}
+
+// run this when the page is ready
+window.addEventListener("DOMContentLoaded", loadProjects);

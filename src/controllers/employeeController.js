@@ -17,7 +17,7 @@ import mongoose from "mongoose";
 
 export const getEmployees = async (req, res) => {
   try {
-    const allEmployees = await employees.find({});
+    const allEmployees = await employees.find({}).populate("location", "name");
     res.status(200).json(allEmployees);
   } catch (error) {
     res.status(500).json({ msg: error.message });
@@ -174,5 +174,7 @@ export const deleteEmployee = async (req, res) => {
 //   employees = employees.filter((employee) => employee.id !== id);
 //   res.status(200).json(employees);
 // };
+
+
 
 export const updatedEmployee = updateEmployee;
