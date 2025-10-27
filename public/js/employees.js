@@ -18,7 +18,7 @@ async function loadEmployees() {
                 <td class="tbl-contents w-25">${employee.name}</td>
                 <td class="tbl-contents w-10">${employee.position}</td>
                 <td class="tbl-contents w-10">${employee.salary}</td>
-                <td class="tbl-contents w-auto">${employee.location}</td>
+                <td class="tbl-contents w-auto">${employee.location?.name}</td>
                 <td>
                   <button type="button" class="view-btn btn btn-primary tbl-contents">View</button>
                   <button type="button" class="edit-btn btn btn-success tbl-contents">Edit</button>
@@ -56,11 +56,14 @@ document
     e.preventDefault(); // prevent page refresh
 
     // Collect form data
+    const response = await fetch(`http://localhost:8000/employees/`);
+    const employee = await response.json();
     const employeeData = {
       name: document.getElementById("name").value,
       position: document.getElementById("position").value,
       salary: document.getElementById("salary").value,
-      location: document.getElementById("location").value,
+      location: (document.getElementById("editLocation").value =
+        employee.location?.name),
     };
 
     try {
@@ -91,7 +94,7 @@ async function viewEmployee(id) {
     document.getElementById("viewName").textContent = data.name;
     document.getElementById("viewPosition").textContent = data.position;
     document.getElementById("viewSalary").textContent = data.salary;
-    document.getElementById("viewLocation").textContent = data.location;
+    document.getElementById("viewLocation").textContent = data.location.name;
     document.getElementById("viewEmail").textContent = data.email || "N/A";
 
     // Show the popup
@@ -114,7 +117,7 @@ async function editEmployee(id) {
     document.getElementById("editName").value = employee.name;
     document.getElementById("editPosition").value = employee.position;
     document.getElementById("editSalary").value = employee.salary;
-    // document.getElementById("editLocation").value = employee.location;
+    document.getElementById("editLocation").value = employee.location?.name;
 
     document.getElementById("editPopup").style.display = "flex";
   } catch (error) {
@@ -134,7 +137,7 @@ async function updateEmployee(event, id) {
     const response = await fetch(`http://localhost:8000/employees/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, position, salary, location }),
+      body: JSON.stringify({ name, position, salary, editLocation }),
     });
 
     if (response.ok) {
@@ -180,8 +183,7 @@ async function loadProjects() {
     const response = await fetch("http://localhost:8000/projects");
     const projects = await response.json();
 
-    const select = document.getElementById("location");
-    select.innerHTML = "<option value=''>Select Project</option>";
+    const select = document.getElementById("editLocation");
 
     projects.forEach((project) => {
       const option = document.createElement("option");
@@ -194,5 +196,4 @@ async function loadProjects() {
   }
 }
 
-// run this when the page is ready
 window.addEventListener("DOMContentLoaded", loadProjects);

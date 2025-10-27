@@ -1,4 +1,5 @@
 import employees from "../models/employeeModel.js";
+import projects from "../models/projectModel.js";
 import mongoose from "mongoose";
 
 // const lastEmployee = await employees.findOne().sort({ employeeId: -1 });
@@ -39,7 +40,7 @@ export const getEmployees = async (req, res) => {
 export const getEmployeeById = async (req, res) => {
   try {
     const { id } = req.params;
-    const employee = await employees.findById(id);
+    const employee = await employees.findById(id).populate("location", "name");
     res.status(200).json(employee);
   } catch (error) {
     res.status(500).json({ msg: error.message });
@@ -74,13 +75,15 @@ export const createEmployee = async (req, res) => {
     // If there’s one, add +1; otherwise start at 1
     const nextId = lastEmployee ? lastEmployee.employeeId + 1 : 1;
 
+    const project = await projects.findOne({ name: req.body.name });
+
     // Create a new employee using the next ID
     const newEmployee = await employees.create({
       employeeId: nextId,
       name: req.body.name,
       position: req.body.position,
       salary: req.body.salary,
-      location: req.body.location,
+      location: project ? project._id : null,
     });
 
     res.status(200).json(newEmployee);
@@ -120,9 +123,13 @@ export const createEmployee = async (req, res) => {
 export const updateEmployee = async (req, res) => {
   try {
     const { id } = req.params;
-    const employee = await employees.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const employee = await employees.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+      }
+    );
     if (!employee) {
       return res.status(404).json({ msg: `Employee ${id} not found` });
     }
@@ -174,7 +181,5 @@ export const deleteEmployee = async (req, res) => {
 //   employees = employees.filter((employee) => employee.id !== id);
 //   res.status(200).json(employees);
 // };
-
-
 
 export const updatedEmployee = updateEmployee;
