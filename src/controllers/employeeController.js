@@ -18,7 +18,7 @@ import mongoose from "mongoose";
 
 export const getEmployees = async (req, res) => {
   try {
-    const allEmployees = await employees.find({}).populate("location", "name");
+    const allEmployees = await employees.find().populate("location", "name");
     res.status(200).json(allEmployees);
   } catch (error) {
     res.status(500).json({ msg: error.message });
@@ -40,7 +40,9 @@ export const getEmployees = async (req, res) => {
 export const getEmployeeById = async (req, res) => {
   try {
     const { id } = req.params;
-    const employee = await employees.findById(id).populate("location", "name");
+    const employee = await employees
+      .findById(req.params.id)
+      .populate("location", "name");
     res.status(200).json(employee);
   } catch (error) {
     res.status(500).json({ msg: error.message });

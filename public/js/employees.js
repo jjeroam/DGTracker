@@ -40,6 +40,7 @@ async function loadEmployees() {
 loadEmployees();
 
 function openEmployeeForm() {
+  loadProjects("addLocation");
   document.getElementById("popupForm").style.display = "flex";
 }
 
@@ -53,17 +54,13 @@ window.onclick = function (event) {
 document
   .getElementById("employeeForm")
   .addEventListener("submit", async (e) => {
-    e.preventDefault(); // prevent page refresh
+    e.preventDefault();
 
-    // Collect form data
-    const response = await fetch(`http://localhost:8000/employees/`);
-    const employee = await response.json();
     const employeeData = {
-      name: document.getElementById("name").value,
-      position: document.getElementById("position").value,
-      salary: document.getElementById("salary").value,
-      location: (document.getElementById("editLocation").value =
-        employee.location?.name),
+      name: document.getElementById("addName").value,
+      position: document.getElementById("addPosition").value,
+      salary: document.getElementById("addSalary").value,
+      location: document.getElementById("addLocation").value, // selected project ID
     };
 
     try {
@@ -76,6 +73,7 @@ document
       if (response.ok) {
         alert("Employee added successfully!");
         document.getElementById("employeeForm").reset();
+        loadProjects(); // refresh project list just in case
       } else {
         alert("Error adding employee");
       }
@@ -110,6 +108,7 @@ let currentEmployeeId = null;
 async function editEmployee(id) {
   currentEmployeeId = id;
 
+  loadProjects("editLocation");
   try {
     const response = await fetch(`http://localhost:8000/employees/${id}`);
     const employee = await response.json();
@@ -137,7 +136,7 @@ async function updateEmployee(event, id) {
     const response = await fetch(`http://localhost:8000/employees/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, position, salary, editLocation }),
+      body: JSON.stringify({ name, position, salary, location }),
     });
 
     if (response.ok) {
@@ -178,12 +177,12 @@ function closePopup() {
   document.getElementById("popupForm").style.display = "none";
 }
 
-async function loadProjects() {
+async function loadProjects(selectId) {
   try {
     const response = await fetch("http://localhost:8000/projects");
     const projects = await response.json();
 
-    const select = document.getElementById("editLocation");
+    const select = document.getElementById(selectId);
 
     projects.forEach((project) => {
       const option = document.createElement("option");
