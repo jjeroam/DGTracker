@@ -43,10 +43,6 @@ function openProjectForm() {
   document.getElementById("popupForm").style.display = "flex";
 }
 
-function closeProjectForm() {
-  document.getElementById("popupForm").style.display = none;
-}
-
 window.onclick = function (event) {
   const popup = document.getElementById("popupForm");
   if (event.target === popup) {
@@ -95,16 +91,29 @@ async function viewProject(id) {
     document.getElementById("viewStatus").textContent = data.status;
     document.getElementById("viewBudget").textContent = data.budget || "N/A";
 
+    const empRes = await fetch(
+      `http://localhost:8000/projects/${id}/employees`
+    );
+    const employees = await empRes.json();
+
+    const empList = document.getElementById("viewEmployeesList");
+    empList.innerHTML = "";
+
+    if (employees.length === 0) {
+      empList.innerHTML = "<p>No employees assigned to this project.</p>";
+    } else {
+      employees.forEach((emp) => {
+        const li = document.createElement("li");
+        li.textContent = `${emp.name} - ${emp.position}`;
+        empList.appendChild(li);
+      });
+    }
+
     // Show the popup
     document.getElementById("viewProjectPopup").style.display = "flex";
   } catch (error) {
     console.error("Error loading project:", error);
   }
-}
-
-// Close popup
-function closeViewPopup() {
-  document.getElementById("viewProjectPopup").style.display = "none";
 }
 
 // edit project details
@@ -153,8 +162,10 @@ async function updateProject(event, id) {
   }
 }
 
-function closeEditProjectForm() {
-  document.getElementById("editPopup").style.display = none;
+function closeForm() {
+  document.getElementById("editPopup").style.display = "none";
+  document.getElementById("viewProjectPopup").style.display = "none";
+  document.getElementById("popupForm").style.display = "none";
 }
 
 async function deleteProject(id) {

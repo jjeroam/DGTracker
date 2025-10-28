@@ -92,8 +92,8 @@ async function viewEmployee(id) {
     document.getElementById("viewName").textContent = data.name;
     document.getElementById("viewPosition").textContent = data.position;
     document.getElementById("viewSalary").textContent = data.salary;
-    document.getElementById("viewLocation").textContent = data.location.name;
-    document.getElementById("viewEmail").textContent = data.email || "N/A";
+    document.getElementById("viewLocation").textContent =
+      data.location?.[0]?.name;
 
     // Show the popup
     document.getElementById("viewEmployeePopup").style.display = "flex";
@@ -183,6 +183,8 @@ async function loadProjects(selectId) {
     const projects = await response.json();
 
     const select = document.getElementById(selectId);
+
+    select.innerHTML = "<option value=''>Select Project</option>";
 
     projects.forEach((project) => {
       const option = document.createElement("option");

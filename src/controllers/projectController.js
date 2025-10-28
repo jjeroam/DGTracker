@@ -1,4 +1,5 @@
 import projects from "../models/projectModel.js";
+import employees from "../models/employeeModel.js";
 
 // @dsc GET all projects
 // @route GET /projects
@@ -40,7 +41,7 @@ export const createProject = async (req, res) => {
     const newProject = await projects({
       projectId: nextId,
       name: req.body.name,
-      client: req.body.client,  
+      client: req.body.client,
       status: req.body.status,
       budget: req.body.budget,
     });
@@ -90,16 +91,20 @@ export const deleteProject = async (req, res) => {
   }
 };
 
-export const connectEmployees = async (req, res) =>{
+export const connectEmployees = async (req, res) => {
   try {
-    // Find the project and populate its employees
-    const project = await projects.findById(req.params.id).populate("employees");
+    const projectId = req.params.id;
 
-    if (!project) {
-      return res.status(404).json({ msg: "Project not found" });
+    // Find employees whose location matches this project ID
+    const employeeList = await employees
+      .find({ location: projectId })
+      .populate("location", "name");
+
+    if (!employeeList || employeeList.length === 0) {
+      return res.status(200).json([]); // no employees assigned
     }
 
-    res.status(200).json(project.employees);
+    res.status(200).json(employeeList);
   } catch (error) {
     console.error("Error fetching project employees:", error);
     res.status(500).json({ msg: error.message });

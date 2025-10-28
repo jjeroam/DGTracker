@@ -28,7 +28,7 @@
         <!-- pop-up form will appear here -->
         <div id="popupForm" class="popup">
           <div class="popup-content">
-            <span class="close-btn" onclick="closeProjectForm()">&times;</span>
+            <span class="close-btn" onclick="closeForm()">&times;</span>
             <h3>New Project</h3>
             <form id="projectForm">
               <label>Name:</label><br>
@@ -69,7 +69,7 @@
 <!-- View Project Popup -->
     <div id="viewProjectPopup" class="popup">
       <div class="popup-content">
-        <span class="close-btn" onclick="closeViewPopup()">&times;</span>
+        <span class="close-btn" onclick="closeForm()">&times;</span>
         <h3>Employee Details</h3>
         <div id="viewDetails">
           <p><strong>ID:</strong> <span id="viewId"></span></p>
@@ -77,6 +77,8 @@
           <p><strong>Client:</strong> <span id="viewClient"></span></p>
           <p><strong>Status:</strong> <span id="viewStatus"></span></p>
           <p><strong>Budget:</strong> <span id="viewBudget"></span></p>
+          <p><strong>Assigned Employees:</strong><ul id="viewEmployeesList"></ul></p>
+              
         </div>
       </div>
     </div>
@@ -85,7 +87,7 @@
 
         <div id="editPopup" class="popup">
           <div class="popup-content">
-            <span class="close-btn" onclick="closeProjectForm()">&times;</span>
+            <span class="close-btn" onclick="closeForm()">&times;</span>
             <h3>Edit Employee</h3>
             <form id="editProjectForm" onsubmit="updateProject(event, currentProjectId)">
                 <!-- <p><strong>ID:</strong> <span id="viewId"></span></p> -->

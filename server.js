@@ -8,7 +8,6 @@ import projects from "./src/routes/projectRoutes.js";
 import documents from "./src/routes/documentRoutes.js";
 import connectDB from "./src/config/db.js";
 import { fileURLToPath } from 'url'
-import axios from "axios";
 
 const PORT = process.env.PORT;
 const app = express();
