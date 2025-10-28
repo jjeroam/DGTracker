@@ -19,6 +19,7 @@ import mongoose from "mongoose";
 export const getEmployees = async (req, res) => {
   try {
     const allEmployees = await employees.find().populate("location", "name");
+    console.log(JSON.stringify(allEmployees, null, 2));
     res.status(200).json(allEmployees);
   } catch (error) {
     res.status(500).json({ msg: error.message });

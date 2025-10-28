@@ -18,7 +18,7 @@ async function loadEmployees() {
                 <td class="tbl-contents w-25">${employee.name}</td>
                 <td class="tbl-contents w-10">${employee.position}</td>
                 <td class="tbl-contents w-10">${employee.salary}</td>
-                <td class="tbl-contents w-auto">${employee.location?.name}</td>
+                <td class="tbl-contents w-auto">${employee.location?.[0]?.name}</td>
                 <td>
                   <button type="button" class="view-btn btn btn-primary tbl-contents">View</button>
                   <button type="button" class="edit-btn btn btn-success tbl-contents">Edit</button>
