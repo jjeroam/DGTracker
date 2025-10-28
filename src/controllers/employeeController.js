@@ -135,7 +135,7 @@ export const updateEmployee = async (req, res) => {
     if (!employee) {
       return res.status(404).json({ msg: `Employee ${id} not found` });
     }
-
+    
     const updatedEmployee = await employees.findById(id);
     res.status(200).json(updatedEmployee);
   } catch (error) {
@@ -143,6 +143,7 @@ export const updateEmployee = async (req, res) => {
   }
 };
 
+export const updatedEmployee = updateEmployee;
 // export const updateEmployee = (req, res) => {
 //   const id = parseInt(req.params.id);
 //   const employee = employees.find((employee) => employee.id === id);
@@ -184,4 +185,3 @@ export const deleteEmployee = async (req, res) => {
 //   res.status(200).json(employees);
 // };
 
-export const updatedEmployee = updateEmployee;
