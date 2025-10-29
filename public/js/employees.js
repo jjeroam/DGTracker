@@ -1,5 +1,3 @@
-// import bootstrap from "bootstrap";
-
 const button = document.getElementById("loadEmployees");
 const tableBody = document.querySelector("#employeeTable tbody");
 

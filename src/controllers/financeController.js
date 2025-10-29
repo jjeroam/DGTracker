@@ -47,7 +47,7 @@ export const createTransaction = async (req, res) => {
 export const updateTransaction = async (req, res) => {
   try {
     const { id } = req.params;
-    const transaction = await expenses.findIdAndUpdate(
+    const transaction = await expenses.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
