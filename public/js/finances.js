@@ -39,13 +39,22 @@ async function loadExpenses() {
 loadExpenses();
 
 function openTransactionForm() {
+  // loadProjects("addTransactionName");
   document.getElementById("addTransactionPopup").style.display = "flex";
 }
 
 window.onclick = function (event) {
   const popup = document.getElementById("addTransactionPopup");
-  if (event.target === popup) {
+  const editPopup = document.getElementById("editTransactionPopup");
+  const viewPopup = document.getElementById("viewTransactionPopup");
+  if (
+    event.target === popup ||
+    event.target === editPopup ||
+    event.target === viewPopup
+  ) {
     popup.style.display = "none";
+    editPopup.style.display = "none";
+    viewPopup.style.display = "none";
   }
 };
 
@@ -70,6 +79,7 @@ document
       if (response.ok) {
         alert("Transaction added successfully!");
         document.getElementById("transactionForm").reset();
+        loadProjects();
       } else {
         alert("Error adding transaction");
       }
@@ -98,12 +108,14 @@ let currentTransactionId = null;
 
 async function editTransaction(id) {
   currentTransactionId = id;
+  // loadProjects("editLocation");
 
   try {
     const response = await fetch(`http://localhost:8000/finances/${id}`);
     const transaction = await response.json();
 
-    document.getElementById("editTransactionName").value = transaction.projectId;
+    document.getElementById("editTransactionName").value =
+      transaction.projectId;
     document.getElementById("editAmount").value = transaction.amount;
     document.getElementById("editCategory").value = transaction.category;
     document.getElementById("editDate").value = transaction.date;
@@ -166,3 +178,25 @@ function closePopup() {
   document.getElementById("editTransactionPopup").style.display = "none";
   document.getElementById("addTransactionPopup").style.display = "none";
 }
+
+// async function loadProjects(selectId) {
+//   try {
+//     const response = await fetch("http://localhost:8000/projects");
+//     const projects = await response.json();
+
+//     const select = document.getElementById(selectId);
+
+// select.innerHTML = "<option value=''>Select Project</option>";
+
+//     projects.forEach((project) => {
+//       const option = document.createElement("option");
+//       option.value = project._id; // store ObjectId
+//       option.textContent = project.name; // show readable name
+//       select.appendChild(option);
+//     });
+//   } catch (error) {
+//     console.error("Error loading projects:", error);
+//   }
+// }
+
+// window.addEventListener("DOMContentLoaded", loadProjects);

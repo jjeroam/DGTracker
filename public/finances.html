@@ -18,7 +18,10 @@
     <header>
       <h1 class="">Finance</h1>
       <div class="navbar navbar-light">
-        <button onclick="openTransactionForm()" class="navbar-brand btn btn-light">
+        <button
+          onclick="openTransactionForm()"
+          class="navbar-brand btn btn-light"
+        >
           Add Transaction
         </button>
         <form class="form-inline">
@@ -34,7 +37,7 @@
         </form>
       </div>
     </header>
-    
+
     <div id="addTransactionPopup" class="popup">
       <div class="popup-content">
         <span class="close-btn" onclick="closePopup()">&times;</span>
@@ -89,25 +92,40 @@
           <p><strong>Date:</strong> <span id="viewDate"></span></p>
         </div>
       </div>
-      
+    </div>
 
-    <!-- Edit Transaction popup --> 
+    <!-- Edit Transaction popup -->
 
-        <div id="editTransactionPopup" class="popup">
-          <div class="popup-content">
-            <span class="close-btn" onclick="closePopup()">&times;</span>
-            <h3>Edit Transaction</h3>
-            <form id="editTransactionForm" onsubmit="updateTransaction(event, currentTransactionId)">
-                <!-- <p><strong>Transaction #:</strong> <span id="viewId"></span></p> -->
-                <p><strong>Transaction Name:</strong> <input type="text" id="editTransactionName" placeholder=""></p>
-                <p><strong>Amount:</strong> <input type="number" id="editAmount" placeholder=""></p>
-                <p><strong>Category:</strong> <input type="text" id="editCategory" placeholder=""></p>
-                <p><strong>Date:</strong> <input type="date" id="editDate" placeholder=""></p>
+    <div id="editTransactionPopup" class="popup">
+      <div class="popup-content">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <h3>Edit Transaction</h3>
+        <form
+          id="editTransactionForm"
+          onsubmit="updateTransaction(event, currentTransactionId)"
+        >
+          <!-- <p><strong>Transaction #:</strong> <span id="viewId"></span></p> -->
+          <p>
+            <strong>Transaction Name:</strong>
+            <input type="text" id="editTransactionName" placeholder="" />
+          </p>
+          <p>
+            <strong>Amount:</strong>
+            <input type="number" id="editAmount" placeholder="" />
+          </p>
+          <p>
+            <strong>Category:</strong>
+            <input type="text" id="editCategory" placeholder="" />
+          </p>
+          <p>
+            <strong>Date:</strong>
+            <input type="date" id="editDate" placeholder="" />
+          </p>
 
-                <button type="submit">Save</button>
-            </form>
-          </div>
-        </div>
-    <script src="./js/finances.js"></script>
+          <button type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+    <script src="/js/finances.js"></script>
   </body>
 </html>
