@@ -13,7 +13,7 @@ async function loadExpenses() {
       const row = document.createElement("tr");
       row.innerHTML = `
                 <td class="tbl-contents w-10">${transaction.transactionId}</td>
-                <td class="tbl-contents w-25">${transaction.projectId}</td>
+                <td class="tbl-contents w-25">${transaction.projectId?.[0]?.name}</td>
                 <td class="tbl-contents w-10">${transaction.amount}</td>
                 <td class="tbl-contents w-10">${transaction.category}</td>
                 <td>
@@ -39,7 +39,7 @@ async function loadExpenses() {
 loadExpenses();
 
 function openTransactionForm() {
-  // loadProjects("addTransactionName");
+  loadProjects("addProjectId");
   document.getElementById("addTransactionPopup").style.display = "flex";
 }
 
@@ -64,7 +64,7 @@ document
     e.preventDefault();
 
     const transactionData = {
-      projectId: document.getElementById("addTransactionName").value,
+      projectId: document.getElementById("addProjectId").value,
       amount: document.getElementById("addAmount").value,
       category: document.getElementById("addCategory").value,
     };
@@ -93,7 +93,8 @@ async function viewTransaction(id) {
     const res = await fetch(`http://localhost:8000/finances/${id}`);
     const data = await res.json();
 
-    document.getElementById("viewTransactionName").textContent = data.projectId;
+    document.getElementById("viewProjectId").textContent =
+      data.projectId?.[0]?.name;
     document.getElementById("viewAmount").textContent = data.amount;
     document.getElementById("viewCategory").textContent = data.category;
     document.getElementById("viewDate").textContent = data.date;
@@ -108,14 +109,14 @@ let currentTransactionId = null;
 
 async function editTransaction(id) {
   currentTransactionId = id;
-  // loadProjects("editLocation");
+  loadProjects("editProjectId");
 
   try {
     const response = await fetch(`http://localhost:8000/finances/${id}`);
     const transaction = await response.json();
 
-    document.getElementById("editTransactionName").value =
-      transaction.projectId;
+    document.getElementById("editProjectId").value =
+      transaction.projectId?.name;
     document.getElementById("editAmount").value = transaction.amount;
     document.getElementById("editCategory").value = transaction.category;
     document.getElementById("editDate").value = transaction.date;
@@ -129,7 +130,7 @@ async function editTransaction(id) {
 async function updateTransaction(event, id) {
   event.preventDefault();
 
-  const transactionName = document.getElementById("editTransactionName").value;
+  const transactionName = document.getElementById("editProjectId").value;
   const amount = document.getElementById("editAmount").value;
   const category = document.getElementById("editCategory").value;
   const date = document.getElementById("editDate").value;
@@ -179,24 +180,24 @@ function closePopup() {
   document.getElementById("addTransactionPopup").style.display = "none";
 }
 
-// async function loadProjects(selectId) {
-//   try {
-//     const response = await fetch("http://localhost:8000/projects");
-//     const projects = await response.json();
+async function loadProjects(selectId) {
+  try {
+    const response = await fetch("http://localhost:8000/projects");
+    const projects = await response.json();
 
-//     const select = document.getElementById(selectId);
+    const select = document.getElementById(selectId);
 
-// select.innerHTML = "<option value=''>Select Project</option>";
+    select.innerHTML = "<option value=''>Select Project</option>";
 
-//     projects.forEach((project) => {
-//       const option = document.createElement("option");
-//       option.value = project._id; // store ObjectId
-//       option.textContent = project.name; // show readable name
-//       select.appendChild(option);
-//     });
-//   } catch (error) {
-//     console.error("Error loading projects:", error);
-//   }
-// }
+    projects.forEach((project) => {
+      const option = document.createElement("option");
+      option.value = project._id; // store ObjectId
+      option.textContent = project.name; // show readable name
+      select.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Error loading projects:", error);
+  }
+}
 
-// window.addEventListener("DOMContentLoaded", loadProjects);
+window.addEventListener("DOMContentLoaded", loadProjects);

@@ -1,5 +1,6 @@
 import projects from "../models/projectModel.js";
 import employees from "../models/employeeModel.js";
+import expenses from "../models/expenseModel.js";
 
 // @dsc GET all projects
 // @route GET /projects
@@ -107,6 +108,27 @@ export const connectEmployees = async (req, res) => {
     res.status(200).json(employeeList);
   } catch (error) {
     console.error("Error fetching project employees:", error);
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+export const getProjectTransactions = async (req, res) => {
+  try {
+    const project = await projects.findById(req.params.id);
+    if (!project) {
+      return res.status(404).json({ msg: "Project not found" });
+    }
+
+    // Find the 3 most recent transactions for this project
+    const transactions = await expenses
+      .find({ projectId: project._id })
+      .sort({ date: -1 })
+      .limit(3)
+      .populate("projectId", "name");
+
+    res.status(200).json(transactions);
+  } catch (error) {
+    console.error("Error fetching project transactions:", error);
     res.status(500).json({ msg: error.message });
   }
 };

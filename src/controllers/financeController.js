@@ -3,7 +3,7 @@ import projects from "../models/projectModel.js";
 
 export const getTransactions = async (req, res) => {
   try {
-    const allExpenses = await expenses.find();
+    const allExpenses = await expenses.find().populate("projectId", "name");
     res.status(200).json(allExpenses);
   } catch (error) {
     res.status(500).json({ msg: error.message });
@@ -13,7 +13,9 @@ export const getTransactions = async (req, res) => {
 export const getTransactionById = async (req, res) => {
   try {
     const { id } = req.params;
-    const transaction = await expenses.findById(req.params.id);
+    const transaction = await expenses
+      .findById(req.params.id)
+      .populate("projectId", "name");
     res.status(200).json(transaction);
   } catch (error) {
     res.status(500).json({ msg: error.message });
@@ -27,11 +29,12 @@ export const createTransaction = async (req, res) => {
       .sort({ transactionId: -1 });
 
     const nextId = lastTransaction ? lastTransaction.transactionId + 1 : 1;
-    // const project = await project.findOne({ name: req.body.name });
+
+    const project = await projects.findById(req.body.projectId);
 
     const newTransaction = await expenses.create({
       transactionId: nextId,
-      projectId: req.body.projectId,
+      projectId: project._id,
       amount: req.body.amount,
       category: req.body.category,
       date: req.body.date,

@@ -109,6 +109,26 @@ async function viewProject(id) {
       });
     }
 
+    const transRes = await fetch(
+      `http://localhost:8000/projects/${id}/transactions`
+    );
+    const transactions = await transRes.json();
+
+    const transContainer = document.getElementById("viewTransactions");
+    transContainer.innerHTML = "";
+
+    if (transactions.length === 0) {
+      transContainer.innerHTML = "<p>No recent transactions.</p>";
+    } else {
+      transactions.forEach((t) => {
+        const item = document.createElement("p");
+        item.textContent = `${t.category} - ₱${t.amount} on ${new Date(
+          t.date
+        ).toLocaleDateString()}`;
+        transContainer.appendChild(item);
+      });
+    }
+
     // Show the popup
     document.getElementById("viewProjectPopup").style.display = "flex";
   } catch (error) {
