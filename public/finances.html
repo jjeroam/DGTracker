@@ -53,9 +53,12 @@
           <label>Category:</label><br />
           <input type="text" id="addCategory" required /><br /><br />
 
-          <!-- <label>Location:</label><br />
-          <select id="addDate></select
-          ><br /><br /> -->
+          <label>Transaction Type: </label><br />
+          <select id="addType">
+            <option value="">Select Type</option>
+            <option value="Income">Inward (Money In)</option>
+            <option value="Expense">Outward (Money Out)</option></select
+          ><br /><br />
 
           <button type="submit">Save</button>
         </form>
@@ -67,9 +70,10 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col" class="tbl-contents">Transaction #</th>
-            <th scope="col" class="tbl-contents">Transaction Name</th>
+            <th scope="col" class="tbl-contents">Project</th>
             <th scope="col" class="tbl-contents">Amount</th>
             <th scope="col" class="tbl-contents">Category</th>
+            <th scope="col" class="tbl-contents">Type</th>
             <th scope="col" class="tbl-contents"></th>
           </tr>
         </thead>
@@ -91,6 +95,7 @@
           <p><strong>Amount</strong> <span id="viewAmount"></span></p>
           <p><strong>Category:</strong> <span id="viewCategory"></span></p>
           <p><strong>Date:</strong> <span id="viewDate"></span></p>
+          <p><strong>Type:</strong> <span id="viewType"></span></p>
         </div>
       </div>
     </div>

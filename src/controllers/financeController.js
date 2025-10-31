@@ -38,7 +38,11 @@ export const createTransaction = async (req, res) => {
       amount: req.body.amount,
       category: req.body.category,
       date: req.body.date,
+      type: req.body.type,
     });
+
+    project.remainingBudget = project.remainingBudget - req.body.amount;
+    await project.save();
 
     res.status(200).json(newTransaction);
   } catch (error) {
@@ -73,6 +77,13 @@ export const deleteTransaction = async (req, res) => {
     const transaction = await expenses.findByIdAndDelete(id);
     if (!transaction) {
       res.status(404).json({ msg: `Transaction ${id} not found` });
+    }
+
+    const project = await projects.findById(transaction.projectId);
+    if (project) {
+      // Add back the deleted transaction amount
+      project.remainingBudget += transaction.amount;
+      await project.save();
     }
 
     res.status(200).json(expenses);

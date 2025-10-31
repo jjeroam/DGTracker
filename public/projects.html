@@ -11,6 +11,8 @@
       crossorigin="anonymous"
     />
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
@@ -31,19 +33,51 @@
             <span class="close-btn" onclick="closeForm()">&times;</span>
             <h3>New Project</h3>
             <form id="projectForm">
-              <label>Name:</label><br>
-              <input type="text" id="name" required><br><br>
+              <div class="form-floating">
+                <input type="text" id="name" class="form-control" placeholder="Name" required><br>
+                <label for="name">Project Name:</label>
+              </div>
 
-              <label>Client</label><br>
-              <input type="text" id="client" required><br><br>
+              <div class="form-floating">
+                <input type="text" id="client" class="form-control" placeholder="Name" required><br>
+                <label for="client">Client Name:</label>
+              </div>
 
-              <label>Status:</label><br>
-              <input type="text" id="status" required><br><br>
+              <div class="form-floating">
+                <select class="form-select" id="status" aria-label="Floating label select example">
+                  <option value="In-Progress">In Progress</option>
+                  <option value="On-Hold">On Hold</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+                <label for="status">Status:</label>
+              </div> <br>
 
-              <label>Budget:</label><br>
-              <input type="number" id="budget" required><br><br>
+              <!-- Start date and due date -->
+              <div class="row g-2">
+                <div class="col-md">
+                  <div class="form-floating">
+                    <input type="date" class="form-control" id="startDate" placeholder="Start Date">
+                    <label for="startDate">Start Date:</label>
+                  </div>
+                </div>
+                <div class="col-md">
+                  <div class="form-floating">
+                    <input type="date" class="form-control" id="dueDate" placeholder="Due Date">
+                    <label for="duetDate">Due Date:</label>
+                  </div>
+                </div>
+              </div> <br>
 
-              <button type="submit">Save</button>
+
+              <div class="input-group mb-3">
+                <span class="input-group-text">₱</span>
+                <div class="form-floating">
+                  <input type="number" class="form-control" id="budget" placeholder="Budget">
+                  <label for="budget">Budget:</label>
+                </div>
+              </div>
+              <button class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
   </div>
@@ -54,11 +88,12 @@
         <thead class="thead-dark">
           <tr>
             <!-- <th scope="col" class="tbl-contents w-20">Project ID</th> -->
-            <th scope="col" class="tbl-contents w-25">Name</th>
-            <th scope="col" class="tbl-contents w-20">Client</th>
-            <th scope="col" class="tbl-contents w-15">Status</th>
-            <th scope="col" class="tbl-contents w-25">Budget</th>
-            <th scope="col" class="tbl-contents w-20"></th>
+            <th scope="col" class="tbl-contents w-auto">Name</th>
+            <th scope="col" class="tbl-contents w-auto">Client</th>
+            <th scope="col" class="tbl-contents w-auto">Status</th>
+            <th scope="col" class="tbl-contents w-auto">Budget</th>
+            <th scope="col" class="tbl-contents w-auto">Remaining Budget</th>
+            <th scope="col" class="tbl-contents w-auto"></th>
           </tr>
         </thead>
         <tbody>
@@ -66,21 +101,74 @@
       </table>
     </div>
 
-<!-- View Project Popup -->
+    <!-- View Project Popup -->
     <div id="viewProjectPopup" class="popup">
       <div class="popup-content">
         <span class="close-btn" onclick="closeForm()">&times;</span>
-        <h3>Employee Details</h3>
+        <h3>Project Details</h3>
+        
         <div id="viewDetails">
-          <p><strong>ID:</strong> <span id="viewId"></span></p>
-          <p><strong>Name:</strong> <span id="viewName"></span></p>
-          <p><strong>Client:</strong> <span id="viewClient"></span></p>
-          <p><strong>Status:</strong> <span id="viewStatus"></span></p>
-          <p><strong>Budget:</strong> <span id="viewBudget"></span></p>
+        <div class="mb-3 row">
+          <label for="viewName" class="col-md-5 col-form-label"><strong>Project Name:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewName"></span>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="viewClient" class="col-md-5 col-form-label"><strong>Client Name:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewClient"></span>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="viewStatus" class="col-md-5 col-form-label"><strong>Status:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewStatus"></span>
+          </div>
+        </div>
+        
+        <div class="mb-3 row">
+          <label for="viewBudget" class="col-md-5 col-form-label"><strong>Budget:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewBudget"></span>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="viewRemainingBudget" class="col-md-5 col-form-label"><strong>Remaining Budget:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewRemainingBudget"></span>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="viewTotalExpenses" class="col-md-5 col-form-label"><strong>Total Expenses:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewTotalExpenses"></span>
+          </div>
+        </div>
+        
+        <div class="mb-3 row">
+          <label for="viewStartDate" class="col-md-5 col-form-label"><strong>Start Date:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewStartDate"></span>
+          </div>
+        </div>
+        
+        <div class="mb-3 row">
+          <label for="viewDueDate" class="col-md-5 col-form-label"><strong>Due Date:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewDueDate"></span>
+          </div>
+        </div>
+        
+
           <p><strong>Assigned Employees:</strong><ul id="viewEmployeesList"></ul></p>
 
           <p><strong>Recent Transactions:</strong></p>
-          <ul id="viewTransactions"></>
+          <ul id="viewTransactions"></ul>
               
         </div>
       </div>
@@ -93,13 +181,28 @@
             <span class="close-btn" onclick="closeForm()">&times;</span>
             <h3>Edit Employee</h3>
             <form id="editProjectForm" onsubmit="updateProject(event, currentProjectId)">
-                <!-- <p><strong>ID:</strong> <span id="viewId"></span></p> -->
-                <p><strong>Name:</strong> <input type="text" id="editName" placeholder=""></p>
-                <p><strong>Client:</strong> <input type="text" id="editClient" placeholder=""></p>
-                <p><strong>Status:</strong> <input type="text" id="editStatus" placeholder=""></p>
-                <p><strong>Budget:</strong> <input type="number" id="editBudget" placeholder=""></p>
+              <div class="form-floating">
+                <input type="text" id="editName" class="form-control" placeholder="Name" required><br>
+                <label for="editName">Project Name:</label>
+              </div>
 
-                <button type="submit">Save</button>
+              <div class="form-floating">
+                <input type="text" id="editClient" class="form-control" placeholder="Name" required><br>
+                <label for="editClient">Client Name:</label>
+              </div>
+
+              <div class="form-floating">
+                <select class="form-select" id="editStatus" aria-label="Floating label select example">
+                  <option value="In-Progress">In Progress</option>
+                  <option value="On-Hold">On Hold</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+                <label for="editStatus">Status:</label>
+              </div> <br>
+                </p>
+
+              <button class="btn btn-primary" type="submit">Submit</button>
             </form>
           </div>
         </div>
@@ -107,4 +210,6 @@
   </body>
 
   <script src="/js/projects.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
 </html>

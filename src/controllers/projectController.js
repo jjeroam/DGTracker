@@ -45,6 +45,9 @@ export const createProject = async (req, res) => {
       client: req.body.client,
       status: req.body.status,
       budget: req.body.budget,
+      location: req.body.location,
+      startDate: req.body.startDate,
+      dueDate: req.body.dueDate,
     });
 
     await newProject.save();

@@ -12,10 +12,11 @@ async function loadExpenses() {
     data.forEach((transaction) => {
       const row = document.createElement("tr");
       row.innerHTML = `
-                <td class="tbl-contents w-10">${transaction.transactionId}</td>
-                <td class="tbl-contents w-25">${transaction.projectId?.[0]?.name}</td>
-                <td class="tbl-contents w-10">${transaction.amount}</td>
-                <td class="tbl-contents w-10">${transaction.category}</td>
+                <td class="tbl-contents w-auto">${transaction.transactionId}</td>
+                <td class="tbl-contents w-auto">${transaction.projectId?.[0]?.name}</td>
+                <td class="tbl-contents w-auto">${transaction.amount}</td>
+                <td class="tbl-contents w-auto">${transaction.category}</td>
+                <td class="tbl-contents w-auto">${transaction.type}</td>
                 <td>
                   <button type="button" class="view-btn btn btn-primary tbl-contents">View</button>
                   <button type="button" class="edit-btn btn btn-success tbl-contents">Edit</button>
@@ -67,6 +68,7 @@ document
       projectId: document.getElementById("addProjectId").value,
       amount: document.getElementById("addAmount").value,
       category: document.getElementById("addCategory").value,
+      type: document.getElementById("addType").value,
     };
 
     try {
@@ -98,6 +100,7 @@ async function viewTransaction(id) {
     document.getElementById("viewAmount").textContent = data.amount;
     document.getElementById("viewCategory").textContent = data.category;
     document.getElementById("viewDate").textContent = data.date;
+    document.getElementById("viewType").textContent = data.type;
 
     document.getElementById("viewTransactionPopup").style.display = "flex";
   } catch (error) {

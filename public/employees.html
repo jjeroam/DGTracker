@@ -12,43 +12,118 @@
       crossorigin="anonymous"
     />
 
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
     <header>
       <h1 class="">Employees</h1>
       <div class="navbar navbar-light">
-        <button onclick="openEmployeeForm()" class="navbar-brand btn btn-light">Add Employee</button>
+        <button onclick="openEmployeeForm()" class="navbar-brand btn btn-light">
+          Add Employee
+        </button>
         <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
         </form>
       </div>
-          <!--search bar will be implemented here --> 
+      <!--search bar will be implemented here -->
     </header>
-        <!-- pop-up form will appear here -->
+    <!-- pop-up form will appear here -->
     <div id="popupForm" class="popup">
       <div class="popup-content">
         <span class="close-btn" onclick="closePopup()">&times;</span>
         <h3>New Employee</h3>
         <form id="employeeForm">
-          <label>Name:</label><br>
-          <input type="text" id="addName" required><br><br>
+          <div class="form-floating">
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              placeholder="Name"
+              required
+            /><br />
+            <label for="name">Name:</label>
+          </div>
 
-          <label>Position:</label><br>
-          <input type="text" id="addPosition" required><br><br>
+          <div class="form-floating">
+            <input
+              type="text"
+              id="position"
+              class="form-control"
+              placeholder="Position"
+              required
+            /><br />
+            <label for="client">Address:</label>
+          </div>
 
-          <label>Salary:</label><br>
-          <input type="number" id="addSalary" required><br><br>
-            
-          <label>Location:</label><br>
-          <select id="addLocation"></select><br><br>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="civilStatus"
+              id="civilStatus"
+              value="Male"
+            />
+            <label class="form-check-label" for="Male">Male</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="civilStatus"
+              id="civilStatus"
+              value="Female"
+            />
+            <label class="form-check-label" for="Female">Female</label>
+          </div>
 
-          <button type="submit">Save</button>
+          <div class="form-floating">
+            <select
+              class="form-select"
+              id="civilStatus"
+              aria-label="Floating label select example"
+            >
+              <option value="Single">Single</option>
+              <option value="Married">Married</option>
+              <option value="Widowed">Widowed</option>
+            </select>
+            <label for="status">Civil Status:</label>
+          </div>
+          <br />
+
+          <div class="row g-2">
+            <div class="col-md">
+              <div class="form-floating">
+                <input
+                  type="date"
+                  class="form-control"
+                  id="birthday"
+                  placeholder="Start Date"
+                />
+                <label for="birthday">Birthday:</label>
+              </div>
+            </div>
+          </div>
+          <br />
+          <button class="btn btn-primary" type="submit">Submit</button>
         </form>
       </div>
     </div>
-    
+
     <div class="table-container">
       <table id="employeeTable" class="table table-striped">
         <thead class="thead-dark">
@@ -62,12 +137,11 @@
             <th scope="col" class="tbl-contents"></th>
           </tr>
         </thead>
-        <tbody>
-        </tbody>
+        <tbody></tbody>
       </table>
     </div>
 
-<!-- View Employee Popup -->
+    <!-- View Employee Popup -->
     <div id="viewEmployeePopup" class="popup">
       <div class="popup-content">
         <span class="close-btn" onclick="closePopup()">&times;</span>
@@ -83,24 +157,49 @@
       </div>
     </div>
 
-    <!-- Edit Employee popup --> 
+    <!-- Edit Employee popup -->
 
-        <div id="editPopup" class="popup">
-          <div class="popup-content">
-            <span class="close-btn" onclick="closePopup()">&times;</span>
-            <h3>Edit Employee</h3>
-            <form id="editEmployeeForm" onsubmit="updateEmployee(event, currentEmployeeId)">
-                <p><strong>ID:</strong> <span id="viewId"></span></p>
-                <p><strong>Name:</strong> <input type="text" id="editName" placeholder=""></p>
-                <p><strong>Position:</strong> <input type="text" id="editPosition" placeholder=""></p>
-                <p><strong>Salary:</strong> <input type="text" id="editSalary" placeholder=""></p>
-                <p><strong>Location:</strong> <select id="editLocation"></select></p>
+    <div id="editPopup" class="popup">
+      <div class="popup-content">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <h3>Edit Employee</h3>
+        <form
+          id="editEmployeeForm"
+          onsubmit="updateEmployee(event, currentEmployeeId)"
+        >
+          <p><strong>ID:</strong> <span id="viewId"></span></p>
+          <p>
+            <strong>Name:</strong>
+            <input type="text" id="editName" placeholder="" />
+          </p>
+          <p>
+            <strong>Position:</strong>
+            <input type="text" id="editPosition" placeholder="" />
+          </p>
+          <p>
+            <strong>Salary:</strong>
+            <input type="text" id="editSalary" placeholder="" />
+          </p>
+          <p>
+            <strong>Location:</strong>
+            <select id="editLocation"></select>
+          </p>
 
-                <button type="submit">Save</button>
-            </form>
-          </div>
-        </div>
-    
-    <script src="/js/employees.js" ></script>
+          <button type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="/js/employees.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+      integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

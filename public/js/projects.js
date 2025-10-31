@@ -18,7 +18,8 @@ async function loadProjects() {
                 <td class="tbl-contents w-25">${project.name}</td>
                 <td class="tbl-contents w-10">${project.client}</td>
                 <td class="tbl-contents w-10">${project.status}</td>
-                <td class="tbl-contents w-auto">${project.budget}</td>  
+                <td class="tbl-contents w-auto">₱${project.budget.toLocaleString()}</td> 
+                <td class="tbl-contents w-auto">₱${project.remainingBudget.toLocaleString()}</td>  
                 <td>
                   <button type="button" class="view-btn btn btn-primary tbl-contents">View</button>
                   <button type="button" class="edit-btn btn btn-success tbl-contents">Edit</button>
@@ -59,6 +60,8 @@ document.getElementById("projectForm").addEventListener("submit", async (e) => {
     client: document.getElementById("client").value,
     status: document.getElementById("status").value,
     budget: document.getElementById("budget").value,
+    startDate: document.getElementById("startDate").value,
+    dueDate: document.getElementById("dueDate").value,
   };
 
   try {
@@ -89,7 +92,17 @@ async function viewProject(id) {
     document.getElementById("viewName").textContent = data.name;
     document.getElementById("viewClient").textContent = data.client;
     document.getElementById("viewStatus").textContent = data.status;
-    document.getElementById("viewBudget").textContent = data.budget || "N/A";
+    document.getElementById("viewBudget").textContent = data.remainingBudget
+      ? `₱${Number(data.budget).toLocaleString()}`
+      : "N/A";
+    document.getElementById("viewRemainingBudget").textContent =
+      data.remainingBudget
+        ? `₱${Number(data.remainingBudget).toLocaleString()}`
+        : "N/A";
+    document.getElementById("viewStartDate").textContent =
+      data.startDate.split("T")[0];
+    document.getElementById("viewDueDate").textContent =
+      data.dueDate.split("T")[0];
 
     const empRes = await fetch(
       `http://localhost:8000/projects/${id}/employees`
@@ -149,7 +162,6 @@ async function editProject(id) {
     document.getElementById("editName").value = project.name;
     document.getElementById("editClient").value = project.client;
     document.getElementById("editStatus").value = project.status;
-    document.getElementById("editBudget").value = project.budget;
 
     document.getElementById("editPopup").style.display = "flex";
   } catch (error) {
@@ -162,13 +174,12 @@ async function updateProject(event, id) {
   const name = document.getElementById("editName").value;
   const client = document.getElementById("editClient").value;
   const status = document.getElementById("editStatus").value;
-  const budget = document.getElementById("editBudget").value;
 
   try {
     const response = await fetch(`http://localhost:8000/projects/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, client, status, budget }),
+      body: JSON.stringify({ name, client, status }),
     });
 
     if (response.ok) {
