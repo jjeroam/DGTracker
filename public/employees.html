@@ -48,78 +48,222 @@
         <span class="close-btn" onclick="closePopup()">&times;</span>
         <h3>New Employee</h3>
         <form id="employeeForm">
-          <div class="form-floating">
-            <input
-              type="text"
-              id="name"
-              class="form-control"
-              placeholder="Name"
-              required
-            /><br />
-            <label for="name">Name:</label>
-          </div>
+          <!-- Biodata form -->
 
-          <div class="form-floating">
-            <input
-              type="text"
-              id="position"
-              class="form-control"
-              placeholder="Position"
-              required
-            /><br />
-            <label for="client">Address:</label>
-          </div>
+          <div class="form-step active" id="step1">
+            <div class="form-floating">
+              <input
+                type="text"
+                id="name"
+                class="form-control"
+                placeholder="Name"
+                required
+              /><br />
+              <label for="name">Name:</label>
+            </div>
 
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="civilStatus"
-              id="civilStatus"
-              value="Male"
-            />
-            <label class="form-check-label" for="Male">Male</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="civilStatus"
-              id="civilStatus"
-              value="Female"
-            />
-            <label class="form-check-label" for="Female">Female</label>
-          </div>
+            <div class="form-floating">
+              <input
+                type="text"
+                id="address"
+                class="form-control"
+                placeholder="Address"
+                required
+              /><br />
+              <label for="address">Address:</label>
+            </div>
 
-          <div class="form-floating">
-            <select
-              class="form-select"
-              id="civilStatus"
-              aria-label="Floating label select example"
-            >
-              <option value="Single">Single</option>
-              <option value="Married">Married</option>
-              <option value="Widowed">Widowed</option>
-            </select>
-            <label for="status">Civil Status:</label>
-          </div>
-          <br />
+            <div class="row g-2">
+              <div class="col-md">
+                <div class="form-floating">
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="birthday"
+                    placeholder="Start Date"
+                  />
+                  <label for="birthday">Birthday:</label>
+                </div>
+              </div>
 
-          <div class="row g-2">
-            <div class="col-md">
-              <div class="form-floating">
-                <input
-                  type="date"
-                  class="form-control"
-                  id="birthday"
-                  placeholder="Start Date"
-                />
-                <label for="birthday">Birthday:</label>
+              <div class="col-md g-2">
+                <label for="sex">Sex</label>
+                <div class="form-floating" id="sex">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="civilStatus"
+                      id="civilStatus"
+                      value="Male"
+                    />
+                    <label class="form-check-label" for="Male">Male</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="civilStatus"
+                      id="civilStatus"
+                      value="Female"
+                    />
+                    <label class="form-check-label" for="Female">Female</label>
+                  </div>
+                </div>
               </div>
             </div>
+            <br />
+
+            <div class="form-floating">
+              <select
+                class="form-select"
+                id="civilStatus"
+                aria-label="Floating label select example"
+              >
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Widowed">Widowed</option>
+              </select>
+              <label for="status">Civil Status:</label>
+            </div>
+            <br />
+            <div class="form-floating">
+              <input
+                type="tel"
+                id="contactNum"
+                class="form-control"
+                placeholder="09XXXXXXXXX"
+                pattern="^09\d{9}$"
+                maxlength="11"
+                required
+              /><br />
+              <label for="contactNum">Contact Number:</label>
+            </div>
+
+            <div class="row g-2">
+              <div class="col-md">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    id="position"
+                    class="form-control"
+                    placeholder="Position"
+                    required
+                  /><br />
+                  <label for="position">Position:</label>
+                </div>
+              </div>
+              <div class="col-md g-2">
+                <div class="form-floating">
+                  <input
+                    type="number"
+                    id="salaryRate"
+                    class="form-control"
+                    placeholder="Salary Rate"
+                    required
+                  /><br />
+                  <label for="salaryRate">Salary Rate:</label>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" type="button" onclick="nextStep(2)">
+              Next
+            </button>
           </div>
-          <br />
-          <button class="btn btn-primary" type="submit">Submit</button>
+
+          <!-- Supporting documents form -->
+          <div class="form-step" id="step2">
+            <div class="mb-3">
+              <label for="resume"><strong>Resume:</strong></label>
+              <input
+                type="file"
+                class="form-control"
+                aria-label="file example"
+                required
+              /></br>
+            </div>
+
+            <div class="mb-3">
+              <label for="birthCert"><strong>Birth Certificate:</strong></label>
+              <input
+                type="file"
+                class="form-control"
+                aria-label="file example"
+                required
+              /></br>
+            </div>
+            
+            <div class="mb-3">
+              <label for="policeClear"><strong>Police Clearance:</strong></label>
+              <input
+                type="file"
+                class="form-control"
+                aria-label="file example"
+                required
+              /></br>
+            </div>
+
+            <button class="btn btn-primary" type="button" onclick="prevStep(1)">
+              Back
+            </button>
+            <button class="btn btn-primary" type="button" onclick="nextStep(3)">
+              Next
+            </button>
+          </div>
+
+          <!-- Government ID's and number form -->
+          <div class="form-step" id="step3">
+
+            <div class="form-floating">
+              <input
+                type="number"
+                id="tinNum"
+                class="form-control"
+                placeholder="TIN Number"
+                required
+              /><br />
+              <label for="tinNum">TIN Number:</label>
+            </div>
+            
+            <div class="form-floating">
+              <input
+                type="number"
+                id="sssNum"
+                class="form-control"
+                placeholder="SSS Number"
+                required
+              /><br />
+              <label for="sssNum">SSS Number:</label>
+            </div>
+            
+            <div class="form-floating">
+              <input
+                type="number"
+                id="philHealthNum"
+                class="form-control"
+                placeholder="PhilHealth Number"
+                required
+              /><br />
+              <label for="philHealthNum">PhilHealth Number:</label>
+            </div>
+            
+            <div class="form-floating">
+              <input
+                type="number"
+                id="pagibigNum"
+                class="form-control"
+                placeholder="Pag-ibig Number"
+                required
+              /><br />
+              <label for="pagibigNum">Pag-ibig Number:</label>
+            </div>
+
+
+            <button class="btn btn-primary" type="button" onclick="nextStep(2)">
+              Back
+            </button>
+          </div>
         </form>
       </div>
     </div>

@@ -195,4 +195,18 @@ async function loadProjects(selectId) {
   }
 }
 
+function nextStep(step) {
+  document
+    .querySelectorAll(".form-step")
+    .forEach((div) => div.classList.remove("active"));
+  document.getElementById("step" + step).classList.add("active");
+}
+
+function prevStep(step) {
+  document
+    .querySelectorAll(".form-step")
+    .forEach((div) => div.classList.remove("active"));
+  document.getElementById("step" + step).classList.add("active");
+}
+
 window.addEventListener("DOMContentLoaded", loadProjects);

@@ -50,6 +50,13 @@
   cursor: pointer;
 }
 
+.form-step {
+  display: none;
+}
+.form-step.active {
+  display: block;
+}
+
 ul {
   list-style: none;
 }
