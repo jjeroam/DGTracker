@@ -99,16 +99,19 @@ async function viewEmployee(id) {
     document.getElementById("viewAddress").textContent = data.address;
     document.getElementById("viewCivilStatus").textContent = data.civilStatus;
     document.getElementById("viewSex").textContent = data.sex;
-    // document.getElementById("viewBirthday").textContent = data.birthday;
-    // document.getElementById("viewContactNum").textContent = data.contactNum;
-    // document.getElementById("viewPosition").textContent = data.position;
-    // document.getElementById("viewSalary").textContent = data.salaryRate;
-    // document.getElementById("viewSSSNum").textContent = data.sssNum;
-    // document.getElementById("viewTinNum").textContent = data.tinNum;
-    // document.getElementById("viewPagibigNum").textContent = data.pagibigNum;
-    // document.getElementById("viewPhilHealthNum").textContent = data.philHealthNum;
-    // document.getElementById("viewLocation").textContent =
-    //   data.location?.[0]?.name;
+    document.getElementById("viewBirthday").textContent =
+      data.birthday.split("T")[0];
+    document.getElementById("viewContactNum").textContent = data.contactNum;
+    document.getElementById("viewPosition").textContent = data.position;
+    document.getElementById("viewSalaryRate").textContent = data.salaryRate;
+    document.getElementById("viewSSSNum").textContent = data.sssNum || "N/A";
+    document.getElementById("viewTinNum").textContent = data.tinNum || "N/A";
+    document.getElementById("viewPagibigNum").textContent =
+      data.pagibigNum || "N/A";
+    document.getElementById("viewPhilHealthNum").textContent =
+      data.philHealthNum || "N/A";
+    document.getElementById("viewLocation").textContent =
+      data.location?.[0]?.name;
 
     // Show the popup
     document.getElementById("viewEmployeePopup").style.display = "flex";
@@ -129,9 +132,21 @@ async function editEmployee(id) {
     const employee = await response.json();
 
     document.getElementById("editName").value = employee.name;
-    document.getElementById("editPosition").value = employee.position;
-    document.getElementById("editSalary").value = employee.salary;
-    document.getElementById("editLocation").value = employee.location?.name;
+    document.getElementById("viewAddress").value = employee.address;
+    document.getElementById("viewCivilStatus").value = employee.civilStatus;
+    document.getElementById("viewSex").value = employee.sex;
+    document.getElementById("viewBirthday").value =
+      employee.birthday.split("T")[0];
+    document.getElementById("viewContactNum").value = employee.contactNum;
+    document.getElementById("viewPosition").value = employee.position;
+    document.getElementById("viewSalaryRate").value = employee.salaryRate;
+    document.getElementById("viewSSSNum").value = employee.sssNum || "N/A";
+    document.getElementById("viewTinNum").value = employee.tinNum || "N/A";
+    document.getElementById("viewPagibigNum").value =
+      employee.pagibigNum || "N/A";
+    document.getElementById("viewPhilHealthNum").value =
+      employee.philHealthNum || "N/A";
+    // document.getElementById("editLocation").value = employee.location?.name;
 
     document.getElementById("editPopup").style.display = "flex";
   } catch (error) {

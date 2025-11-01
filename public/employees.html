@@ -311,8 +311,71 @@
           </div>
         </div>
   
-
+        <div class="mb-3 row">
+          <label for="viewBirthday" class="col-md-5 col-form-label"><strong>Birthday:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewBirthday"></span>
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label for="viewContactNum" class="col-md-5 col-form-label"><strong>Contact Number:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewContactNum"></span>
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label for="viewPosition" class="col-md-5 col-form-label"><strong>Position:</strong></label>
+          <div class="col-sm-5">
+            <span class="form-control-plaintext" id="viewPosition"></span>
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label for="viewSalaryRate" class="col-md-5 col-form-label"><strong>Salary Rate:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewSalaryRate"></span>
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label for="viewSSSNum" class="col-md-5 col-form-label"><strong>SSS Number:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewSSSNum"></span>
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label for="viewTinNum" class="col-md-5 col-form-label"><strong>TIN Number:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewTinNum"></span>
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label for="viewPagibigNum" class="col-md-5 col-form-label"><strong>Pag-ibig Number:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewPagibigNum"></span>
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label for="viewPhilHealthNum" class="col-md-5 col-form-label"><strong>PhilHealth Number:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewPhilHealthNum"></span>
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label for="viewLocation" class="col-md-5 col-form-label"><strong>Assigned Project:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewLocation"></span>
+          </div>
+        </div>
+  
       </div>
+    </div>
     </div>
 
     <!-- Edit Employee popup -->
@@ -321,29 +384,214 @@
       <div class="popup-content">
         <span class="close-btn" onclick="closePopup()">&times;</span>
         <h3>Edit Employee</h3>
-        <form
-          id="editEmployeeForm"
-          onsubmit="updateEmployee(event, currentEmployeeId)"
-        >
-          <p><strong>ID:</strong> <span id="viewId"></span></p>
-          <p>
-            <strong>Name:</strong>
-            <input type="text" id="editName" placeholder="" />
-          </p>
-          <p>
-            <strong>Position:</strong>
-            <input type="text" id="editPosition" placeholder="" />
-          </p>
-          <p>
-            <strong>Salary:</strong>
-            <input type="text" id="editSalary" placeholder="" />
-          </p>
-          <p>
-            <strong>Location:</strong>
-            <select id="editLocation"></select>
-          </p>
+        <form id="editEmployeeForm">
+          <!-- Biodata form -->
 
-          <button type="submit">Save</button>
+          <div class="form-step active" id="step1">
+            <div class="form-floating">
+              <input
+                type="text"
+                id="editName"
+                class="form-control"
+                placeholder="Name"
+                required
+              /><br />
+              <label for="editName">Name:</label>
+            </div>
+
+            <div class="form-floating">
+              <input
+                type="text"
+                id="editAddress"
+                class="form-control"
+                placeholder="Address"
+                required
+              /><br />
+              <label for="editAddress">Address:</label>
+            </div>
+
+            <div class="row g-2">
+              <div class="col-md">
+                <div class="form-floating">
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="editBirthday"
+                    placeholder="Start Date"
+                    required
+                  />
+                  <label for="editBirthday">Birthday:</label>
+                </div>
+              </div>
+
+              <div class="col-md g-2">
+                <label for="editSex">Sex</label>
+                <div class="form-floating" id="editSex">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="editSex"
+                      id="editSex"
+                      value="Male"
+                    />
+                    <label class="form-check-label" for="Male">Male</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="editSex"
+                      id="editSex"
+                      value="Female"
+                    />
+                    <label class="form-check-label" for="Female">Female</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <div class="form-floating">
+              <select class="form-select" id="editCivilStatus"aria-label="Floating label select example">
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Widowed">Widowed</option>
+              </select>
+              <label for="editCivilStatus">Civil Status:</label>
+            </div>
+            <br />
+            <div class="form-floating">
+              <input  
+                type="tel"
+                id="editContactNum"
+                class="form-control"
+                placeholder="09XXXXXXXXX"
+                pattern="^09\d{9}$"
+                maxlength="11"
+                required
+              /><br />
+              <label for="editContactNum">Contact Number:</label>
+            </div>
+
+            <div class="row g-2">
+              <div class="col-md">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    id="editPosition"
+                    class="form-control"
+                    placeholder="Position"
+                    required
+                  /><br />
+                  <label for="editPosition">Position:</label>
+                </div>
+              </div>
+              <div class="col-md g-2">
+                <div class="form-floating">
+                  <input
+                    type="number"
+                    id="editSalaryRate"
+                    class="form-control"
+                    placeholder="Salary Rate"
+                    required
+                  /><br />
+                  <label for="editSalaryRate">Salary Rate:</label>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" type="button" onclick="nextStep(2)">
+              Next
+            </button>
+          </div>
+
+          <!-- Supporting documents form -->
+          <div class="form-step" id="step2">
+            <div class="mb-3">
+              <label for="resume"><strong>Resume:</strong></label>
+              <input
+                type="file"
+                class="form-control"
+                aria-label="file example"
+              /></br>
+            </div>
+
+            <div class="mb-3">
+              <label for="birthCert"><strong>Birth Certificate:</strong></label>
+              <input
+                type="file"
+                class="form-control"
+                aria-label="file example"
+              /></br>
+            </div>
+            
+            <div class="mb-3">
+              <label for="policeClear"><strong>Police Clearance:</strong></label>
+              <input
+                type="file"
+                class="form-control"
+                aria-label="file example"
+              /></br>
+            </div>
+
+            <button class="btn btn-primary" type="button" onclick="prevStep(1)">
+              Back
+            </button>
+            <button class="btn btn-primary" type="button" onclick="nextStep(3)">
+              Next
+            </button>
+          </div>
+
+          <!-- Government ID's and number form -->
+          <div class="form-step" id="step3">
+
+            <div class="form-floating">
+              <input
+                type="number"
+                id="editTinNum"
+                class="form-control"
+                placeholder="TIN Number"
+              /><br />
+              <label for="editTinNum">TIN Number:</label>
+            </div>
+            
+            <div class="form-floating">
+              <input
+                type="number"
+                id="editSSSNum"
+                class="form-control"
+                placeholder="SSS Number"
+              /><br />
+              <label for="editSSSNum">SSS Number:</label>
+            </div>
+            
+            <div class="form-floating">
+              <input
+                type="number"
+                id="editPhilHealthNum"
+                class="form-control"
+                placeholder="PhilHealth Number"
+              /><br />
+              <label for="editPhilHealthNum">PhilHealth Number:</label>
+            </div>
+            
+            <div class="form-floating">
+              <input
+                type="number"
+                id="editPagibigNum"
+                class="form-control"
+                placeholder="Pag-ibig Number"
+              /><br />
+              <label for="editPagibigNum">Pag-ibig Number:</label>
+            </div>
+
+
+            <button class="btn btn-primary" type="button" onclick="nextStep(2)">
+              Back
+            </button>
+            <button class="btn btn-success" type="submit">Save</button>
+          </div>
         </form>
       </div>
     </div>
