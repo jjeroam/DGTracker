@@ -15,7 +15,7 @@ async function loadEmployees() {
                 <td class="tbl-contents w-10">${employee.employeeId}</td>
                 <td class="tbl-contents w-25">${employee.name}</td>
                 <td class="tbl-contents w-10">${employee.position}</td>
-                <td class="tbl-contents w-10">${employee.salary}</td>
+                <td class="tbl-contents w-10">${employee.salaryRate}</td>
                 <td class="tbl-contents w-auto">${employee.location?.[0]?.name}</td>
                 <td>
                   <button type="button" class="view-btn btn btn-primary tbl-contents">View</button>
@@ -38,7 +38,6 @@ async function loadEmployees() {
 loadEmployees();
 
 function openEmployeeForm() {
-  loadProjects("addLocation");
   document.getElementById("popupForm").style.display = "flex";
 }
 
@@ -56,10 +55,20 @@ document
 
     const employeeData = {
       name: document.getElementById("addName").value,
+      address: document.getElementById("addAddress").value,
+      civilStatus: document.getElementById("addCivilStatus").value,
+      sex: document.querySelector('input[name="addSex"]:checked').value,
+      birthday: document.getElementById("addBirthday").value,
+      contactNum: document.getElementById("addContactNum").value,
       position: document.getElementById("addPosition").value,
-      salary: document.getElementById("addSalary").value,
-      location: document.getElementById("addLocation").value, // selected project ID
+      salaryRate: document.getElementById("addSalaryRate").value,
+      sssNum: document.getElementById("addSSSNum").value,
+      tinNum: document.getElementById("addTinNum").value,
+      pagibigNum: document.getElementById("addPagibigNum").value,
+      philHealthNum: document.getElementById("addPhilHealthNum").value,
     };
+
+    console.log(employeeData);
 
     try {
       const response = await fetch("http://localhost:8000/employees", {
@@ -71,7 +80,6 @@ document
       if (response.ok) {
         alert("Employee added successfully!");
         document.getElementById("employeeForm").reset();
-        loadProjects(); // refresh project list just in case
       } else {
         alert("Error adding employee");
       }
@@ -86,12 +94,21 @@ async function viewEmployee(id) {
     const res = await fetch(`http://localhost:8000/employees/${id}`);
     const data = await res.json();
     // Fill the popup fields with employee data
-    // document.getElementById("viewId").textContent = data._id;
+    document.getElementById("viewId").textContent = data._id;
     document.getElementById("viewName").textContent = data.name;
-    document.getElementById("viewPosition").textContent = data.position;
-    document.getElementById("viewSalary").textContent = data.salary;
-    document.getElementById("viewLocation").textContent =
-      data.location?.[0]?.name;
+    document.getElementById("viewAddress").textContent = data.address;
+    document.getElementById("viewCivilStatus").textContent = data.civilStatus;
+    document.getElementById("viewSex").textContent = data.sex;
+    // document.getElementById("viewBirthday").textContent = data.birthday;
+    // document.getElementById("viewContactNum").textContent = data.contactNum;
+    // document.getElementById("viewPosition").textContent = data.position;
+    // document.getElementById("viewSalary").textContent = data.salaryRate;
+    // document.getElementById("viewSSSNum").textContent = data.sssNum;
+    // document.getElementById("viewTinNum").textContent = data.tinNum;
+    // document.getElementById("viewPagibigNum").textContent = data.pagibigNum;
+    // document.getElementById("viewPhilHealthNum").textContent = data.philHealthNum;
+    // document.getElementById("viewLocation").textContent =
+    //   data.location?.[0]?.name;
 
     // Show the popup
     document.getElementById("viewEmployeePopup").style.display = "flex";

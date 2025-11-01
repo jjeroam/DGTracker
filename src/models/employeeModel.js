@@ -19,9 +19,12 @@ const employeeSchema = new mongoose.Schema({
       "Please enter a valid Philippine mobile number",
     ],
   },
-  
   position: String,
-  salary: Number,
+  salaryRate: Number,
+  sssNum: Number,
+  tinNum: Number,
+  pagibigNum: Number,
+  philHealthNum: Number,
   location: [{ type: mongoose.Schema.Types.ObjectId, ref: "projects" }],
 });
 

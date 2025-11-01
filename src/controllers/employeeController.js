@@ -83,9 +83,17 @@ export const createEmployee = async (req, res) => {
     const newEmployee = await employees.create({
       employeeId: nextId,
       name: req.body.name,
+      address: req.body.address,
+      civilStatus: req.body.civilStatus,
+      sex: req.body.sex,
+      birthday: req.body.birthday,
+      contactNum: req.body.contactNum,
       position: req.body.position,
-      salary: req.body.salary,
-      location: project ? project._id : null,
+      salaryRate: req.body.salaryRate,
+      sssNum: req.body.sssNum,
+      tinNum: req.body.tinNum,
+      pagibigNum: req.body.pagibigNum,
+      philHealthNum: req.body.philHealthNum,
     });
 
     res.status(200).json(newEmployee);
@@ -135,7 +143,7 @@ export const updateEmployee = async (req, res) => {
     if (!employee) {
       return res.status(404).json({ msg: `Employee ${id} not found` });
     }
-    
+
     const updatedEmployee = await employees.findById(id);
     res.status(200).json(updatedEmployee);
   } catch (error) {
@@ -184,4 +192,3 @@ export const deleteEmployee = async (req, res) => {
 //   employees = employees.filter((employee) => employee.id !== id);
 //   res.status(200).json(employees);
 // };
-
