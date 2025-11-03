@@ -1,6 +1,6 @@
 import employees from "../models/employeeModel.js";
 import projects from "../models/projectModel.js";
-import mongoose from "mongoose";
+import multer from "multer";
 
 // const lastEmployee = await employees.findOne().sort({ employeeId: -1 });
 // const nextId = lastEmployee ? lastEmployee.employeeId + 1 : 1;
@@ -79,6 +79,10 @@ export const createEmployee = async (req, res) => {
 
     const project = await projects.findOne({ name: req.body.name });
 
+    console.log("Files uploaded:", req.files); // <== debug
+    console.log("Body data:", req.body); // <== debug
+    const filePaths = req.files.map((file) => file.path);
+
     // Create a new employee using the next ID
     const newEmployee = await employees.create({
       employeeId: nextId,
@@ -94,6 +98,7 @@ export const createEmployee = async (req, res) => {
       tinNum: req.body.tinNum,
       pagibigNum: req.body.pagibigNum,
       philHealthNum: req.body.philHealthNum,
+      documents: filePaths,
     });
 
     res.status(200).json(newEmployee);

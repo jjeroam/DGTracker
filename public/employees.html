@@ -47,7 +47,7 @@
       <div class="popup-content">
         <span class="close-btn" onclick="closePopup()">&times;</span>
         <h3>New Employee</h3>
-        <form id="employeeForm">
+        <form id="employeeForm" enctype="multipart/form-data">
           <!-- Biodata form -->
 
           <div class="form-step active" id="step1">
@@ -177,6 +177,8 @@
                 type="file"
                 class="form-control"
                 aria-label="file example"
+                name="documents"
+                id="resume"
               /></br>
             </div>
 
@@ -186,6 +188,8 @@
                 type="file"
                 class="form-control"
                 aria-label="file example"
+                name="documents"
+                id="birthCert"
               /></br>
             </div>
             
@@ -195,6 +199,8 @@
                 type="file"
                 class="form-control"
                 aria-label="file example"
+                name="documents"
+                id="policeClear"
               /></br>
             </div>
 
@@ -336,6 +342,27 @@
           <label for="viewSalaryRate" class="col-md-5 col-form-label"><strong>Salary Rate:</strong></label>
           <div class="col-sm-3">
             <span class="form-control-plaintext" id="viewSalaryRate"></span>
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label for="viewResume" class="col-md-5 col-form-label"><strong>Resume:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewResume"></span>
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label for="viewPoliceClearance" class="col-md-5 col-form-label"><strong>Police Clearance:</strong></label>
+          <div class="col-sm-3">
+            <button class="btn" onclick="downloadFile()">download</button>
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label for="viewBirthCert" class="col-md-5 col-form-label"><strong>Birth Certificate:</strong></label>
+          <div class="col-sm-3">
+            <span class="form-control-plaintext" id="viewBirthCert"></span>
           </div>
         </div>
   

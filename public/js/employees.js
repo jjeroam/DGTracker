@@ -53,33 +53,68 @@ document
   .addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const employeeData = {
-      name: document.getElementById("addName").value,
-      address: document.getElementById("addAddress").value,
-      civilStatus: document.getElementById("addCivilStatus").value,
-      sex: document.querySelector('input[name="addSex"]:checked').value,
-      birthday: document.getElementById("addBirthday").value,
-      contactNum: document.getElementById("addContactNum").value,
-      position: document.getElementById("addPosition").value,
-      salaryRate: document.getElementById("addSalaryRate").value,
-      sssNum: document.getElementById("addSSSNum").value,
-      tinNum: document.getElementById("addTinNum").value,
-      pagibigNum: document.getElementById("addPagibigNum").value,
-      philHealthNum: document.getElementById("addPhilHealthNum").value,
-    };
+    const form = e.target;
+    const formData = new FormData();
 
-    console.log(employeeData);
+    // Append text fields manually
+    formData.append("name", document.getElementById("addName").value);
+    formData.append("address", document.getElementById("addAddress").value);
+    formData.append(
+      "civilStatus",
+      document.getElementById("addCivilStatus").value
+    );
+    formData.append(
+      "sex",
+      document.querySelector('input[name="addSex"]:checked').value
+    );
+    formData.append("birthday", document.getElementById("addBirthday").value);
+    formData.append(
+      "contactNum",
+      document.getElementById("addContactNum").value
+    );
+    formData.append("position", document.getElementById("addPosition").value);
+    formData.append(
+      "salaryRate",
+      document.getElementById("addSalaryRate").value
+    );
+    formData.append("sssNum", document.getElementById("addSSSNum").value);
+    formData.append("tinNum", document.getElementById("addTinNum").value);
+    formData.append(
+      "pagibigNum",
+      document.getElementById("addPagibigNum").value
+    );
+    formData.append(
+      "philHealthNum",
+      document.getElementById("addPhilHealthNum").value
+    );
+
+    // Append Resume
+    const resumeInput = document.getElementById("resume");
+    if (resumeInput && resumeInput.files.length > 0) {
+      formData.append("documents", resumeInput.files[0]);
+    }
+
+    // Append Birth Certificate
+    const birthCertInput = document.getElementById("birthCert");
+    if (birthCertInput && birthCertInput.files.length > 0) {
+      formData.append("documents", birthCertInput.files[0]);
+    }
+
+    // Append Police Clearance
+    const policeClearInput = document.getElementById("policeClear");
+    if (policeClearInput && policeClearInput.files.length > 0) {
+      formData.append("documents", policeClearInput.files[0]);
+    }
 
     try {
       const response = await fetch("http://localhost:8000/employees", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(employeeData),
+        body: formData,
       });
 
       if (response.ok) {
         alert("Employee added successfully!");
-        document.getElementById("employeeForm").reset();
+        form.reset();
       } else {
         alert("Error adding employee");
       }
@@ -94,11 +129,13 @@ async function viewEmployee(id) {
     const res = await fetch(`http://localhost:8000/employees/${id}`);
     const data = await res.json();
     // Fill the popup fields with employee data
-    document.getElementById("viewId").textContent = data._id;
+    // document.getElementById("viewId").textContent = data._id;
     document.getElementById("viewName").textContent = data.name;
     document.getElementById("viewAddress").textContent = data.address;
     document.getElementById("viewCivilStatus").textContent = data.civilStatus;
-    document.getElementById("viewSex").textContent = data.sex;
+    document.querySelector(
+      `input[name="editSex"][value="${data.sex}"]`
+    ).checked = true;
     document.getElementById("viewBirthday").textContent =
       data.birthday.split("T")[0];
     document.getElementById("viewContactNum").textContent = data.contactNum;
@@ -239,6 +276,18 @@ function prevStep(step) {
     .querySelectorAll(".form-step")
     .forEach((div) => div.classList.remove("active"));
   document.getElementById("step" + step).classList.add("active");
+}
+
+function downloadFile(filename) {
+  const fileUrl = `http://localhost:8000/uploads/${filename}`;
+
+  // This forces the browser to download it directly
+  const a = document.createElement("a");
+  a.href = fileUrl;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
 
 window.addEventListener("DOMContentLoaded", loadProjects);
