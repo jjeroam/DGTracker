@@ -205,20 +205,24 @@ export const assignProject = async (req, res) => {
     const { id } = req.params;
     const { projectId } = req.body;
 
-    // Update the employee's location with the selected project
-    const employee = await employees
-      .findByIdAndUpdate(
-        id,
-        { $addToSet: { location: projectId } }, // prevents duplicates
-        { new: true }
-      )
-      .populate("location", "name");
-
+    // Ensure employee exists
+    const employee = await employees.findById(id);
     if (!employee) {
       return res.status(404).json({ msg: "Employee not found" });
     }
 
-    res.status(200).json({ msg: "Project assigned successfully", employee });
+    // Update (replace) location with the new project ID
+    employee.location = [projectId]; // overwrite existing assignment
+    await employee.save();
+
+    const updatedEmployee = await employees
+      .findById(id)
+      .populate("location", "name");
+
+    res.status(200).json({
+      msg: "Project assigned or updated successfully",
+      employee: updatedEmployee,
+    });
   } catch (error) {
     console.error("Error assigning project:", error);
     res.status(500).json({ msg: "Internal Server Error" });
