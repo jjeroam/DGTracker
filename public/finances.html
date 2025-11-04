@@ -15,121 +15,133 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <header>
-      <h1 class="">Finance</h1>
-      <div class="navbar navbar-light">
-        <button
-          onclick="openTransactionForm()"
-          class="navbar-brand btn btn-light"
-        >
-          Add Transaction
-        </button>
-        <form class="form-inline">
-          <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            Search
+    <div class="sidebar p-3" id="sidebar">
+      <h4 class="text-center mb-4">DGTracker</h4>
+      <nav class="nav flex-column">
+        <a href="index.html" class="nav-link">🏠 Home</a>
+        <a href="employees.html" class="nav-link">👨‍💼 Employees</a>
+        <a href="projects.html" class="nav-link">📁 Projects</a>
+        <a href="finances.html" class="nav-link active">💰 Finances</a>
+      </nav>
+    </div>
+
+    <div class="content">
+      <header>
+        <h1 class="">Finance</h1>
+        <div class="navbar navbar-light">
+          <button
+            onclick="openTransactionForm()"
+            class="navbar-brand btn btn-light"
+          >
+            Add Transaction
           </button>
-        </form>
-      </div>
-    </header>
+          <form class="form-inline">
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </header>
 
-    <div id="addTransactionPopup" class="popup">
-      <div class="popup-content">
-        <span class="close-btn" onclick="closePopup()">&times;</span>
-        <h3>New Transaction</h3>
-        <form id="transactionForm">
-          <label>Project:</label><br />
-          <select id="addProjectId" required></select
-          ><br /><br />
+      <div id="addTransactionPopup" class="popup">
+        <div class="popup-content">
+          <span class="close-btn" onclick="closePopup()">&times;</span>
+          <h3>New Transaction</h3>
+          <form id="transactionForm">
+            <label>Project:</label><br />
+            <select id="addProjectId" required></select
+            ><br /><br />
 
-          <label>Amount:</label><br />
-          <input type="number" id="addAmount" required /><br /><br />
+            <label>Amount:</label><br />
+            <input type="number" id="addAmount" required /><br /><br />
 
-          <label>Category:</label><br />
-          <input type="text" id="addCategory" required /><br /><br />
+            <label>Category:</label><br />
+            <input type="text" id="addCategory" required /><br /><br />
 
-          <label>Transaction Type: </label><br />
-          <select id="addType">
-            <option value="">Select Type</option>
-            <option value="Income">Inward (Money In)</option>
-            <option value="Expense">Outward (Money Out)</option></select
-          ><br /><br />
+            <label>Transaction Type: </label><br />
+            <select id="addType">
+              <option value="">Select Type</option>
+              <option value="Income">Inward (Money In)</option>
+              <option value="Expense">Outward (Money Out)</option></select
+            ><br /><br />
 
-          <button type="submit">Save</button>
-        </form>
-      </div>
-    </div>
-
-    <div class="table-container">
-      <table id="expenseTable" class="table table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col" class="tbl-contents">Transaction #</th>
-            <th scope="col" class="tbl-contents">Project</th>
-            <th scope="col" class="tbl-contents">Amount</th>
-            <th scope="col" class="tbl-contents">Category</th>
-            <th scope="col" class="tbl-contents">Type</th>
-            <th scope="col" class="tbl-contents"></th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <!-- View Transaction Popup -->
-    <div id="viewTransactionPopup" class="popup">
-      <div class="popup-content">
-        <span class="close-btn" onclick="closePopup()">&times;</span>
-        <h3>Transaction Details</h3>
-        <div id="viewDetails">
-          <!-- <p><strong>ID:</strong> <span id="viewId"></span></p> -->
-          <p>
-            <strong>Project:</strong>
-            <span id="viewProjectId"></span>
-          </p>
-          <p><strong>Amount</strong> <span id="viewAmount"></span></p>
-          <p><strong>Category:</strong> <span id="viewCategory"></span></p>
-          <p><strong>Date:</strong> <span id="viewDate"></span></p>
-          <p><strong>Type:</strong> <span id="viewType"></span></p>
+            <button type="submit">Save</button>
+          </form>
         </div>
       </div>
-    </div>
 
-    <!-- Edit Transaction popup -->
+      <div class="table-container">
+        <table id="expenseTable" class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col" class="tbl-contents">Transaction #</th>
+              <th scope="col" class="tbl-contents">Project</th>
+              <th scope="col" class="tbl-contents">Amount</th>
+              <th scope="col" class="tbl-contents">Category</th>
+              <th scope="col" class="tbl-contents">Type</th>
+              <th scope="col" class="tbl-contents"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
 
-    <div id="editTransactionPopup" class="popup">
-      <div class="popup-content">
-        <span class="close-btn" onclick="closePopup()">&times;</span>
-        <h3>Edit Transaction</h3>
-        <form
-          id="editTransactionForm"
-          onsubmit="updateTransaction(event, currentTransactionId)"
-        >
-          <!-- <p><strong>Transaction #:</strong> <span id="viewId"></span></p> -->
-          <p>
-            <strong>Project:</strong>
-            <select id="editProjectId" placeholder=""></select>
-          </p>
-          <p>
-            <strong>Amount:</strong>
-            <input type="number" id="editAmount" placeholder="" />
-          </p>
-          <p>
-            <strong>Category:</strong>
-            <input type="text" id="editCategory" placeholder="" />
-          </p>
-          <p>
-            <strong>Date:</strong>
-            <input type="date" id="editDate" placeholder="" />
-          </p>
+      <!-- View Transaction Popup -->
+      <div id="viewTransactionPopup" class="popup">
+        <div class="popup-content">
+          <span class="close-btn" onclick="closePopup()">&times;</span>
+          <h3>Transaction Details</h3>
+          <div id="viewDetails">
+            <!-- <p><strong>ID:</strong> <span id="viewId"></span></p> -->
+            <p>
+              <strong>Project:</strong>
+              <span id="viewProjectId"></span>
+            </p>
+            <p><strong>Amount</strong> <span id="viewAmount"></span></p>
+            <p><strong>Category:</strong> <span id="viewCategory"></span></p>
+            <p><strong>Date:</strong> <span id="viewDate"></span></p>
+            <p><strong>Type:</strong> <span id="viewType"></span></p>
+          </div>
+        </div>
+      </div>
 
-          <button type="submit">Save</button>
-        </form>
+      <!-- Edit Transaction popup -->
+
+      <div id="editTransactionPopup" class="popup">
+        <div class="popup-content">
+          <span class="close-btn" onclick="closePopup()">&times;</span>
+          <h3>Edit Transaction</h3>
+          <form
+            id="editTransactionForm"
+            onsubmit="updateTransaction(event, currentTransactionId)"
+          >
+            <!-- <p><strong>Transaction #:</strong> <span id="viewId"></span></p> -->
+            <p>
+              <strong>Project:</strong>
+              <select id="editProjectId" placeholder=""></select>
+            </p>
+            <p>
+              <strong>Amount:</strong>
+              <input type="number" id="editAmount" placeholder="" />
+            </p>
+            <p>
+              <strong>Category:</strong>
+              <input type="text" id="editCategory" placeholder="" />
+            </p>
+            <p>
+              <strong>Date:</strong>
+              <input type="date" id="editDate" placeholder="" />
+            </p>
+
+            <button type="submit">Save</button>
+          </form>
+        </div>
       </div>
     </div>
     <script src="/js/finances.js"></script>
