@@ -22,8 +22,8 @@ async function loadProjects() {
                 <td class="tbl-contents w-auto">₱${project.remainingBudget.toLocaleString()}</td>  
                 <td>
                   <button type="button" class="view-btn btn btn-primary tbl-contents">View</button>
-                  <button type="button" class="edit-btn btn btn-success tbl-contents">Edit</button>
                   <button type="button" class="delete-btn btn btn-danger tbl-contents">Delete</button>
+                  <button type="button" class="edit-btn btn btn-success tbl-contents">Edit</button>
                 </td>
             `;
       row.querySelector(".view-btn").onclick = () => viewProject(project._id);

@@ -20,11 +20,14 @@ async function loadEmployees() {
                 <td>
                   <button type="button" class="view-btn btn btn-primary tbl-contents">View</button>
                   <button type="button" class="edit-btn btn btn-success tbl-contents">Edit</button>
+                  <button type="button" class="assign-btn btn btn-secondary tbl-contents">Assign</button>
                   <button type="button" class="delete-btn btn btn-danger tbl-contents">Delete</button>
                 </td>
             `;
       row.querySelector(".view-btn").onclick = () => viewEmployee(employee._id);
       row.querySelector(".edit-btn").onclick = () => editEmployee(employee._id);
+      row.querySelector(".assign-btn").onclick = () =>
+        assignEmployee(employee._id);
       row.querySelector(".delete-btn").onclick = () =>
         deleteEmployee(employee._id);
 
@@ -88,23 +91,15 @@ document
       document.getElementById("addPhilHealthNum").value
     );
 
-    // Append Resume
-    const resumeInput = document.getElementById("resume");
-    if (resumeInput && resumeInput.files.length > 0) {
-      formData.append("documents", resumeInput.files[0]);
-    }
-
-    // Append Birth Certificate
-    const birthCertInput = document.getElementById("birthCert");
-    if (birthCertInput && birthCertInput.files.length > 0) {
-      formData.append("documents", birthCertInput.files[0]);
-    }
-
-    // Append Police Clearance
-    const policeClearInput = document.getElementById("policeClear");
-    if (policeClearInput && policeClearInput.files.length > 0) {
-      formData.append("documents", policeClearInput.files[0]);
-    }
+    formData.append("resume", document.getElementById("addResume").files[0]);
+    formData.append(
+      "birthCert",
+      document.getElementById("addBirthCert").files[0]
+    );
+    formData.append(
+      "policeClear",
+      document.getElementById("addPoliceClear").files[0]
+    );
 
     try {
       const response = await fetch("http://localhost:8000/employees", {
@@ -183,7 +178,6 @@ async function editEmployee(id) {
       employee.pagibigNum || "N/A";
     document.getElementById("viewPhilHealthNum").value =
       employee.philHealthNum || "N/A";
-    // document.getElementById("editLocation").value = employee.location?.name;
 
     document.getElementById("editPopup").style.display = "flex";
   } catch (error) {
@@ -197,13 +191,12 @@ async function updateEmployee(event, id) {
   const name = document.getElementById("editName").value;
   const position = document.getElementById("editPosition").value;
   const salary = document.getElementById("editSalary").value;
-  const location = document.getElementById("editLocation").value;
 
   try {
     const response = await fetch(`http://localhost:8000/employees/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, position, salary, location }),
+      body: JSON.stringify({ name, position, salary }),
     });
 
     if (response.ok) {
@@ -237,11 +230,45 @@ async function deleteEmployee(id) {
   }
 }
 
+function assignEmployee(id) {
+  document.getElementById("assignEmployeeId").value = id;
+  loadProjects("assignLocation");
+  document.getElementById("assignPopup").style.display = "flex";
+}
+document
+  .getElementById("assignEmployeeForm")
+  .addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const employeeId = document.getElementById("assignEmployeeId").value;
+    const projectId = document.getElementById("assignLocation").value;
+
+    try {
+      const response = await fetch(
+        `http://localhost:8000/employees/${employeeId}/assign-project`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ projectId }),
+        }
+      );
+
+      if (response.ok) {
+        alert("Employee assigned successfully!");
+        closePopup();
+      } else {
+        alert("Failed to assign employee.");
+      }
+    } catch (error) {
+      console.error("Error assigning project:", error);
+    }
+  });
+
 // Close popup
 function closePopup() {
   document.getElementById("viewEmployeePopup").style.display = "none";
   document.getElementById("editPopup").style.display = "none";
   document.getElementById("popupForm").style.display = "none";
+  document.getElementById("assignPopup").style.display = "none";
 }
 
 async function loadProjects(selectId) {

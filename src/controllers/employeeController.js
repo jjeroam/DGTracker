@@ -79,9 +79,11 @@ export const createEmployee = async (req, res) => {
 
     const project = await projects.findOne({ name: req.body.name });
 
-    console.log("Files uploaded:", req.files); // <== debug
-    console.log("Body data:", req.body); // <== debug
-    const filePaths = req.files.map((file) => file.path);
+    const filePaths = [
+      req.files.resume?.[0]?.path,
+      req.files.birthCert?.[0]?.path,
+      req.files.policeClear?.[0]?.path,
+    ].filter(Boolean); // removes undefined
 
     // Create a new employee using the next ID
     const newEmployee = await employees.create({
@@ -197,3 +199,28 @@ export const deleteEmployee = async (req, res) => {
 //   employees = employees.filter((employee) => employee.id !== id);
 //   res.status(200).json(employees);
 // };
+
+export const assignProject = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { projectId } = req.body;
+
+    // Update the employee's location with the selected project
+    const employee = await employees
+      .findByIdAndUpdate(
+        id,
+        { $addToSet: { location: projectId } }, // prevents duplicates
+        { new: true }
+      )
+      .populate("location", "name");
+
+    if (!employee) {
+      return res.status(404).json({ msg: "Employee not found" });
+    }
+
+    res.status(200).json({ msg: "Project assigned successfully", employee });
+  } catch (error) {
+    console.error("Error assigning project:", error);
+    res.status(500).json({ msg: "Internal Server Error" });
+  }
+};

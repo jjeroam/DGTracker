@@ -177,8 +177,8 @@
                 type="file"
                 class="form-control"
                 aria-label="file example"
-                name="documents"
-                id="resume"
+                name="addResume"
+                id="addResume"
               /></br>
             </div>
 
@@ -188,8 +188,8 @@
                 type="file"
                 class="form-control"
                 aria-label="file example"
-                name="documents"
-                id="birthCert"
+                name="addBirthCert"
+                id="addBirthCert"
               /></br>
             </div>
             
@@ -199,8 +199,8 @@
                 type="file"
                 class="form-control"
                 aria-label="file example"
-                name="documents"
-                id="policeClear"
+                name="addPoliceClear"
+                id="addPoliceClear"
               /></br>
             </div>
 
@@ -291,42 +291,42 @@
 
         <div class="mb-3 row">
           <label for="viewName" class="col-md-5 col-form-label"><strong>Name:</strong></label>
-          <div class="col-sm-3">
+          <div class="col-sm-5">
             <span class="form-control-plaintext" id="viewName"></span>
           </div>
         </div>
         
         <div class="mb-3 row">
           <label for="viewAddress" class="col-md-5 col-form-label"><strong>Address:</strong></label>
-          <div class="col-sm-3">
+          <div class="col-sm-5">
             <span class="form-control-plaintext" id="viewAddress"></span>
           </div>
         </div>
         
         <div class="mb-3 row">
           <label for="viewCivilStatus" class="col-md-5 col-form-label"><strong>Civil Status:</strong></label>
-          <div class="col-sm-3">
+          <div class="col-sm-5">
             <span class="form-control-plaintext" id="viewCivilStatus"></span>
           </div>
         </div>
   
         <div class="mb-3 row">
           <label for="viewSex" class="col-md-5 col-form-label"><strong>Sex:</strong></label>
-          <div class="col-sm-3">
+          <div class="col-sm-5">
             <span class="form-control-plaintext" id="viewSex"></span>
           </div>
         </div>
   
         <div class="mb-3 row">
           <label for="viewBirthday" class="col-md-5 col-form-label"><strong>Birthday:</strong></label>
-          <div class="col-sm-3">
+          <div class="col-sm-5">
             <span class="form-control-plaintext" id="viewBirthday"></span>
           </div>
         </div>
   
         <div class="mb-3 row">
           <label for="viewContactNum" class="col-md-5 col-form-label"><strong>Contact Number:</strong></label>
-          <div class="col-sm-3">
+          <div class="col-sm-5">
             <span class="form-control-plaintext" id="viewContactNum"></span>
           </div>
         </div>
@@ -340,63 +340,63 @@
   
         <div class="mb-3 row">
           <label for="viewSalaryRate" class="col-md-5 col-form-label"><strong>Salary Rate:</strong></label>
-          <div class="col-sm-3">
+          <div class="col-sm-5">
             <span class="form-control-plaintext" id="viewSalaryRate"></span>
           </div>
         </div>
   
         <div class="mb-3 row">
           <label for="viewResume" class="col-md-5 col-form-label"><strong>Resume:</strong></label>
-          <div class="col-sm-3">
-            <span class="form-control-plaintext" id="viewResume"></span>
+          <div class="col-sm-5">
+            <a onclick="downloadFile()">download</a>
           </div>
         </div>
   
         <div class="mb-3 row">
           <label for="viewPoliceClearance" class="col-md-5 col-form-label"><strong>Police Clearance:</strong></label>
-          <div class="col-sm-3">
-            <button class="btn" onclick="downloadFile()">download</button>
+          <div class="col-sm-5">
+            <a onclick="downloadFile()">download</a>
           </div>
         </div>
   
         <div class="mb-3 row">
           <label for="viewBirthCert" class="col-md-5 col-form-label"><strong>Birth Certificate:</strong></label>
-          <div class="col-sm-3">
-            <span class="form-control-plaintext" id="viewBirthCert"></span>
+          <div class="col-sm-5">
+            <a onclick="downloadFile()">download</a>
           </div>
         </div>
   
         <div class="mb-3 row">
           <label for="viewSSSNum" class="col-md-5 col-form-label"><strong>SSS Number:</strong></label>
-          <div class="col-sm-3">
+          <div class="col-sm-5">
             <span class="form-control-plaintext" id="viewSSSNum"></span>
           </div>
         </div>
   
         <div class="mb-3 row">
           <label for="viewTinNum" class="col-md-5 col-form-label"><strong>TIN Number:</strong></label>
-          <div class="col-sm-3">
+          <div class="col-sm-5">
             <span class="form-control-plaintext" id="viewTinNum"></span>
           </div>
         </div>
   
         <div class="mb-3 row">
           <label for="viewPagibigNum" class="col-md-5 col-form-label"><strong>Pag-ibig Number:</strong></label>
-          <div class="col-sm-3">
+          <div class="col-sm-5">
             <span class="form-control-plaintext" id="viewPagibigNum"></span>
           </div>
         </div>
   
         <div class="mb-3 row">
           <label for="viewPhilHealthNum" class="col-md-5 col-form-label"><strong>PhilHealth Number:</strong></label>
-          <div class="col-sm-3">
+          <div class="col-sm-5">
             <span class="form-control-plaintext" id="viewPhilHealthNum"></span>
           </div>
         </div>
   
         <div class="mb-3 row">
           <label for="viewLocation" class="col-md-5 col-form-label"><strong>Assigned Project:</strong></label>
-          <div class="col-sm-3">
+          <div class="col-sm-5">
             <span class="form-control-plaintext" id="viewLocation"></span>
           </div>
         </div>
@@ -623,6 +623,26 @@
       </div>
     </div>
 
+    <div id="assignPopup" class="popup">
+      <div class="popup-content">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <h3>Assign Employee</h3>
+        <form id="assignEmployeeForm">
+          <!-- Hidden field to store employee ID -->
+          <input type="hidden" id="assignEmployeeId" name="employeeId" />
+
+          <label for="assignLocation">Select Project:</label>
+          <select name="assignLocation" id="assignLocation">
+            <option value="">Loading projects...</option>
+          </select>
+
+          <button type="submit" class="btn btn-success">Assign</button>
+
+
+        </form>
+      </div>
+    </div>
+    
     <script src="/js/employees.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
