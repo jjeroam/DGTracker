@@ -642,14 +642,17 @@
           <!-- Hidden field to store employee ID -->
           <input type="hidden" id="assignEmployeeId" name="employeeId" />
 
-          <label for="assignLocation">Select Project:</label>
-          <select name="assignLocation" id="assignLocation">
-            <option value="">Loading projects...</option>
-          </select>
-
-          <button type="submit" class="btn btn-success">Assign</button>
-
-
+            <div class="form-floating mb-3">
+              <select
+                class="form-select"
+                id="assignLocation"
+                aria-label="Floating label select example"
+              >
+                <option value="">Select Type</option>
+              </select>
+              <label for="assignLocation">Select Project:</label>
+            </div>
+            <button type="submit" class="btn btn-success">Assign</button>
         </form>
       </div>
     </div>

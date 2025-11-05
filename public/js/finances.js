@@ -98,8 +98,8 @@ async function viewTransaction(id) {
     document.getElementById("viewProjectId").textContent =
       data.projectId?.[0]?.name;
     document.getElementById("viewAmount").textContent = data.amount;
+    document.getElementById("viewDate").textContent = data.date.split("T")[0];
     document.getElementById("viewCategory").textContent = data.category;
-    document.getElementById("viewDate").textContent = data.date;
     document.getElementById("viewType").textContent = data.type;
 
     document.getElementById("viewTransactionPopup").style.display = "flex";

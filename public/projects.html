@@ -56,6 +56,11 @@
               </div>
 
               <div class="form-floating">
+                <input type="text" id="location" class="form-control" placeholder="Location" required><br>
+                <label for="location">Project Location:</label>
+              </div>
+
+              <div class="form-floating">
                 <select class="form-select" id="status" aria-label="Floating label select example">
                   <option value="In-Progress">In Progress</option>
                   <option value="On-Hold">On Hold</option>
@@ -120,15 +125,22 @@
         <div id="viewDetails">
         <div class="mb-3 row">
           <label for="viewName" class="col-md-5 col-form-label"><strong>Project Name:</strong></label>
-          <div class="col-sm-3">
+          <div class="col-sm-5">
             <span class="form-control-plaintext" id="viewName"></span>
           </div>
         </div>
 
         <div class="mb-3 row">
           <label for="viewClient" class="col-md-5 col-form-label"><strong>Client Name:</strong></label>
-          <div class="col-sm-3">
+          <div class="col-sm-5">
             <span class="form-control-plaintext" id="viewClient"></span>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="viewLocation" class="col-md-5 col-form-label"><strong>Project Location:</strong></label>
+          <div class="col-sm-5">
+            <span class="form-control-plaintext" id="viewLocation"></span>
           </div>
         </div>
 
@@ -199,6 +211,11 @@
               <div class="form-floating">
                 <input type="text" id="editClient" class="form-control" placeholder="Name" required><br>
                 <label for="editClient">Client Name:</label>
+              </div>
+              
+              <div class="form-floating">
+                <input type="text" id="editLocation" class="form-control" placeholder="Location" required><br>
+                <label for="editLocation">Project Location:</label>
               </div>
 
               <div class="form-floating">

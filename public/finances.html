@@ -12,6 +12,13 @@
       crossorigin="anonymous"
     />
 
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
@@ -54,24 +61,61 @@
           <span class="close-btn" onclick="closePopup()">&times;</span>
           <h3>New Transaction</h3>
           <form id="transactionForm">
-            <label>Project:</label><br />
-            <select id="addProjectId" required></select
-            ><br /><br />
+            <div class="form-floating mb-3">
+              <select
+                name="addProjectId"
+                id="addProjectId"
+                class="form-select"
+                aria-label="Floating label select example"
+              >
+                <option value=""></option>
+              </select>
+              <label for="addProjectId">Select Project:</label>
+            </div>
 
-            <label>Amount:</label><br />
-            <input type="number" id="addAmount" required /><br /><br />
+            <div class="input-group mb-3">
+              <span class="input-group-text">₱</span>
+              <div class="form-floating">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="addAmount"
+                  placeholder="Budget"
+                />
+                <label for="addAmount">Amount:</label>
+              </div>
+            </div>
 
-            <label>Category:</label><br />
-            <input type="text" id="addCategory" required /><br /><br />
+            <div class="form-floating mb-3">
+              <input
+                class="form-control"
+                list="datalistOptions"
+                id="addCategory"
+                placeholder="Type to search..."
+              />
+              <datalist id="datalistOptions">
+                <option value="Labor"></option>
+                <option value="Materials"></option>
+                <option value="Equipments"></option>
+                <option value="Others"></option>
+              </datalist>
+              <label for="addCategory" class="form-label">Category</label>
+            </div>
 
-            <label>Transaction Type: </label><br />
-            <select id="addType">
-              <option value="">Select Type</option>
-              <option value="Income">Inward (Money In)</option>
-              <option value="Expense">Outward (Money Out)</option></select
-            ><br /><br />
+            <div class="form-floating mb-3">
+              <select
+                class="form-select"
+                id="addType"
+                aria-label="Floating label select example"
+              >
+                <option value="">Select Type</option>
+                <option value="Income">Inward (Money In)</option>
+                <option value="Expense">Outward (Money Out)</option>
+              </select>
+              <label for="addType">Transaction Type:</label>
+            </div>
 
-            <button type="submit">Save</button>
+            <button class="btn btn-success" type="submit">Save</button>
           </form>
         </div>
       </div>
@@ -98,15 +142,50 @@
           <span class="close-btn" onclick="closePopup()">&times;</span>
           <h3>Transaction Details</h3>
           <div id="viewDetails">
-            <!-- <p><strong>ID:</strong> <span id="viewId"></span></p> -->
-            <p>
-              <strong>Project:</strong>
-              <span id="viewProjectId"></span>
-            </p>
-            <p><strong>Amount</strong> <span id="viewAmount"></span></p>
-            <p><strong>Category:</strong> <span id="viewCategory"></span></p>
-            <p><strong>Date:</strong> <span id="viewDate"></span></p>
-            <p><strong>Type:</strong> <span id="viewType"></span></p>
+            <div class="mb-3 row">
+              <label for="viewProjectId" class="col-md-5 col-form-label"
+                ><strong>Project Name:</strong></label
+              >
+              <div class="col-sm-3">
+                <span class="form-control-plaintext" id="viewProjectId"></span>
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="viewAmount" class="col-md-5 col-form-label"
+                ><strong>Amount:</strong></label
+              >
+              <div class="col-sm-3">
+                <span class="form-control-plaintext" id="viewAmount"></span>
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="viewCategory" class="col-md-5 col-form-label"
+                ><strong>Category:</strong></label
+              >
+              <div class="col-sm-3">
+                <span class="form-control-plaintext" id="viewCategory"></span>
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="viewDate" class="col-md-5 col-form-label"
+                ><strong>Transaction Date:</strong></label
+              >
+              <div class="col-sm-3">
+                <span class="form-control-plaintext" id="viewDate"></span>
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="viewType" class="col-md-5 col-form-label"
+                ><strong>Transaction Type:</strong></label
+              >
+              <div class="col-sm-3">
+                <span class="form-control-plaintext" id="viewType"></span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -121,29 +200,86 @@
             id="editTransactionForm"
             onsubmit="updateTransaction(event, currentTransactionId)"
           >
-            <!-- <p><strong>Transaction #:</strong> <span id="viewId"></span></p> -->
-            <p>
-              <strong>Project:</strong>
-              <select id="editProjectId" placeholder=""></select>
-            </p>
-            <p>
-              <strong>Amount:</strong>
-              <input type="number" id="editAmount" placeholder="" />
-            </p>
-            <p>
-              <strong>Category:</strong>
-              <input type="text" id="editCategory" placeholder="" />
-            </p>
-            <p>
-              <strong>Date:</strong>
-              <input type="date" id="editDate" placeholder="" />
-            </p>
+            <div class="form-floating mb-3">
+              <select
+                name="editProjectId"
+                id="editProjectId"
+                class="form-select"
+                aria-label="Floating label select example"
+              >
+                <option value=""></option>
+              </select>
+              <label for="editProjectId">Select Project:</label>
+            </div>
 
-            <button type="submit">Save</button>
+            <div class="input-group mb-3">
+              <span class="input-group-text">₱</span>
+              <div class="form-floating">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="editAmount"
+                  placeholder="Budget"
+                />
+                <label for="editAmount">Amount:</label>
+              </div>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input
+                class="form-control"
+                list="datalistOptions"
+                id="editCategory"
+                placeholder="Type to search..."
+              />
+              <datalist id="datalistOptions">
+                <option value="Labor"></option>
+                <option value="Materials"></option>
+                <option value="Equipments"></option>
+                <option value="Others"></option>
+              </datalist>
+              <label for="editCategory" class="form-label">Category</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <select
+                class="form-select"
+                id="editType"
+                aria-label="Floating label select example"
+              >
+                <option value="">Select Type</option>
+                <option value="Income">Inward (Money In)</option>
+                <option value="Expense">Outward (Money Out)</option>
+              </select>
+              <label for="editType">Transaction Type:</label>
+            </div>
+
+            <div class="form-floating">
+              <input
+                type="date"
+                class="form-control"
+                id="editDate"
+                placeholder="Date"
+                required
+              />
+              <label for="editDate">Transaction Date:</label>
+            </div>
+
+            <button class="btn btn-success" type="submit">Save</button>
           </form>
         </div>
       </div>
     </div>
     <script src="/js/finances.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+      integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

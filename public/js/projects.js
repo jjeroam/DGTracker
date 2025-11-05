@@ -22,8 +22,8 @@ async function loadProjects() {
                 <td class="tbl-contents w-auto">₱${project.remainingBudget.toLocaleString()}</td>  
                 <td>
                   <button type="button" class="view-btn btn btn-primary tbl-contents">View</button>
-                  <button type="button" class="delete-btn btn btn-danger tbl-contents">Delete</button>
                   <button type="button" class="edit-btn btn btn-success tbl-contents">Edit</button>
+                  <button type="button" class="delete-btn btn btn-danger tbl-contents">Delete</button>
                 </td>
             `;
       row.querySelector(".view-btn").onclick = () => viewProject(project._id);
@@ -57,6 +57,7 @@ document.getElementById("projectForm").addEventListener("submit", async (e) => {
   // Collect form data
   const projectData = {
     name: document.getElementById("name").value,
+    location: document.getElementById("location").value,
     client: document.getElementById("client").value,
     status: document.getElementById("status").value,
     budget: document.getElementById("budget").value,
@@ -91,6 +92,7 @@ async function viewProject(id) {
     // document.getElementById("viewId").textContent = data._id;
     document.getElementById("viewName").textContent = data.name;
     document.getElementById("viewClient").textContent = data.client;
+    document.getElementById("viewLocation").textContent = data.location;
     document.getElementById("viewStatus").textContent = data.status;
     document.getElementById("viewBudget").textContent = data.remainingBudget
       ? `₱${Number(data.budget).toLocaleString()}`
@@ -161,6 +163,7 @@ async function editProject(id) {
 
     document.getElementById("editName").value = project.name;
     document.getElementById("editClient").value = project.client;
+    document.getElementById("editLocation").value = project.location;
     document.getElementById("editStatus").value = project.status;
 
     document.getElementById("editPopup").style.display = "flex";
@@ -173,13 +176,14 @@ async function updateProject(event, id) {
 
   const name = document.getElementById("editName").value;
   const client = document.getElementById("editClient").value;
-  const status = document.getElementById("editStatus").value;
+  const location = document.getElementById("editLocation").value;
+  const status = document.getElementById("editStatus").value
 
   try {
     const response = await fetch(`http://localhost:8000/projects/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, client, status }),
+      body: JSON.stringify({ name, client, status, location }),
     });
 
     if (response.ok) {
