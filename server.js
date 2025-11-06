@@ -6,6 +6,7 @@ import employee from "./src/routes/employeeRoutes.js";
 import finances from "./src/routes/financeRoutes.js";
 import projects from "./src/routes/projectRoutes.js";
 import documents from "./src/routes/documentRoutes.js";
+import payrolls from "./src/routes/payrollRoutes.js";
 import connectDB from "./src/config/db.js";
 import { fileURLToPath } from "url";
 
@@ -32,6 +33,7 @@ app.use("/employees", employee);
 app.use("/finances", finances);
 app.use("/projects", projects);
 app.use("/documents", documents);
+app.use("/payrolls", payrolls);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

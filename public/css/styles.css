@@ -31,7 +31,7 @@
 }
 
 .popup-content {
-  background: white;
+  background: #f4f4f4;
   padding: 20px;
   border-radius: 8px;
   width: 500px;
@@ -61,18 +61,18 @@ body {
   min-height: 100vh;
   display: flex;
   /* flex-direction: column; */
-  background-color: #f8f9fa;
+  background-color: #f4f4f4;
 }
 
 .sidebar {
   width: 240px;
-  background-color: #0d6efd;
+  background-color: #0c2b4e;
   color: white;
   flex-shrink: 0;
 }
 
 .sidebar .nav-link {
-  color: #cfe2ff;
+  color: #f4f4f4;
   padding: 12px 20px;
   border-radius: 6px;
   margin: 4px 10px;
@@ -80,8 +80,8 @@ body {
 
 .sidebar .nav-link.active,
 .sidebar .nav-link:hover {
-  background-color: #084298;
-  color: #fff;
+  background-color: #1a3d64;
+  color: #f4f4f4;
 }
 
 .content {
