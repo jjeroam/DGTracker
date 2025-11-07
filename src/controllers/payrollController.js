@@ -8,7 +8,7 @@ export const getProjectsSummary = async (req, res) => {
     const summary = project.map((p) => ({
       _id: p._id,
       name: p.name,
-      employeeCount: p.employees?.length
+      employeeCount: p.employees?.length,
     }));
     res.json(summary);
   } catch (error) {
@@ -22,8 +22,7 @@ export const getEmployeesByProject = async (req, res) => {
     const employeesList = await Employee.find({
       location: req.params.projectId,
     });
-    const names = employeesList.map((emp) => emp.name);
-    res.json(names);
+    res.json(employeesList);
   } catch (error) {
     res.status(500).json({ msg: "Server Error" });
   }

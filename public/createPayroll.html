@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Payroll</title>
+    <title>Create Payroll</title>
 
     <link
       rel="stylesheet"
@@ -33,8 +33,31 @@
       </nav>
     </div>
 
-    <div class="row" id="payrollCardsContainer"></div>
-    <script src="/js/payroll.js"></script>
+    <div class="table-container">
+      <table id="employeeTable" class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <!-- <th scope="col" class="tbl-contents w-20">Employee ID</th> -->
+            <th scope="col" class="tbl-contents">Name</th>
+            <th scope="col" class="tbl-contents">Position</th>
+            <th scope="col" class="tbl-contents">Salary Rate</th>
+            <th scope="col" class="tbl-contents">Sunday</th>
+            <th scope="col" class="tbl-contents">Monday</th>
+            <th scope="col" class="tbl-contents">Tuesday</th>
+            <th scope="col" class="tbl-contents">Wednesday</th>
+            <th scope="col" class="tbl-contents">Thursday</th>
+            <th scope="col" class="tbl-contents">Friday</th>
+            <th scope="col" class="tbl-contents">Saturday</th>
+            <th scope="col" class="tbl-contents">Cash Advance for the Week</th>
+            <th scope="col" class="tbl-contents">Cash Advance Deduction</th>
+            <th scope="col" class="tbl-contents">Cash Advance Balance</th>
+            <th scope="col" class="tbl-contents">Total Salary</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+    <script src="/js/createPayroll.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
       integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
