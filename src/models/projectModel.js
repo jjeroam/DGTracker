@@ -17,6 +17,7 @@ const projectSchema = new mongoose.Schema({
   startDate: Date,
   dueDate: Date,
   notes: String,
+  documents: [String],
 });
 
 const projects = mongoose.model("projects", projectSchema, "projects"); // 'Project' is the model name

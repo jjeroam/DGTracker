@@ -13,7 +13,7 @@ export const getProjectsSummary = async (req, res) => {
     res.json(summary);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ msg: "Server Error" });
   }
 };
 

@@ -9,12 +9,12 @@ const payrollSchema = new mongoose.Schema({
     mon: Number,
     tue: Number,
     wed: Number,
-    thurs: Number,
+    thu: Number,
     fri: Number,
     sat: Number,
   },
   cashAdvance: Number,
-  cashAdvanceBalance: Number
+  cashAdvanceBalance: Number,
 });
 
 const payrolls = mongoose.model("payrolls", payrollSchema);
