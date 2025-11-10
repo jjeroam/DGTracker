@@ -14,7 +14,7 @@ export const getProject = async (req, res) => {
   }
 };
 
-// @dsc GET project by id
+// @ dsc GET project by id
 // @ route GET /projects/:id
 
 export const getProjectById = async (req, res) => {

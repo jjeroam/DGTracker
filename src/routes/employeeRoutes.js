@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     // Create a folder for the specific employee (based on name or ID)
     const employeeName = req.body.name?.replace(/\s+/g, "_") || "unknown";
-    const uploadDir = path.join("uploads", employeeName);
+    const uploadDir = path.join("uploads/employees", employeeName);
 
     // Create the folder if it doesn't exist
     if (!fs.existsSync(uploadDir)) {
