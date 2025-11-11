@@ -1,9 +1,13 @@
-import mongoose from "mongoonse";
+import mongoose from "mongoose";
 
 const documentSchema = new mongoose.Schema({
-    projects: [{ type: mongoose.Schema.Types.ObjectId, ref: "projects" }],
-    fileName: [string],
-})
+  projectId: [{ type: mongoose.Schema.Types.ObjectId, ref: "projects" }],
+  name: String,
+  type: String,
+  size: Number,
+  path: String,
+  uploadedAt: { type: Date, default: Date.now },
+});
 
 const documents = mongoose.model("documents", documentSchema);
 
