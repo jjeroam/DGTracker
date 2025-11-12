@@ -291,18 +291,24 @@ async function loadProjects(selectId) {
   }
 }
 
-function nextStep(step) {
-  document
-    .querySelectorAll(".form-step")
-    .forEach((div) => div.classList.remove("active"));
-  document.getElementById("step" + step).classList.add("active");
+function nextStep(prefix, step) {
+  const currentStep = document.querySelector(`#${prefix}Step${step - 1}`);
+  const nextStep = document.querySelector(`#${prefix}Step${step}`);
+
+  if (currentStep && nextStep) {
+    currentStep.classList.remove("active");
+    nextStep.classList.add("active");
+  }
 }
 
-function prevStep(step) {
-  document
-    .querySelectorAll(".form-step")
-    .forEach((div) => div.classList.remove("active"));
-  document.getElementById("step" + step).classList.add("active");
+function prevStep(prefix, step) {
+  const currentStep = document.querySelector(`#${prefix}Step${step + 1}`);
+  const prevStep = document.querySelector(`#${prefix}Step${step}`);
+
+  if (currentStep && prevStep) {
+    currentStep.classList.remove("active");
+    prevStep.classList.add("active");
+  }
 }
 
 function downloadFile(filename) {

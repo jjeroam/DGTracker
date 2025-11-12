@@ -2,141 +2,61 @@ async function loadProjectEmployees() {
   try {
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get("projectId");
-
-    if (!projectId) {
-      console.error("No project ID found in URL");
-      return;
-    }
+    if (!projectId) return;
 
     const response = await fetch(
       `http://localhost:8000/payrolls/project/${projectId}/employees`
     );
-    if (!response.ok) throw new Error("Failed to fetch employees");
-
     const employees = await response.json();
 
     const tableBody = document.getElementById("tableBody");
     tableBody.innerHTML = "";
 
-    employees.forEach((employee) => {
+    employees.forEach((employee, index) => {
       const row = document.createElement("tr");
+
+      // Use classes instead of IDs for daily selects
       row.innerHTML = `
-        <td class="tbl-contents w-25">${employee.name}</td>
-        <td class="tbl-contents w-10">${employee.position}</td>
-        <td class="tbl-contents w-10">${employee.salaryRate}</td>
-        <td class="tbl-contents w-10"><select id="sun">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option></select></td>
-        <td class="tbl-contents w-10"><select id="mon">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option></select></td>
-        <td class="tbl-contents w-10"><select id="tue">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option></select></td>
-        <td class="tbl-contents w-10"><select id="wed">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option></select></td>
-        <td class="tbl-contents w-10"><select id="thu">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option></select></td>
-        <td class="tbl-contents w-10"><select id="fri">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option></select></td>
-        <td class="tbl-contents w-10"><select id="sat">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option></select></td>
-        <td></td>
+        <td class="tbl-contents w-auto">${employee.name}</td>
+        <td class="tbl-contents w-auto">${employee.position}</td>
+        <td class="tbl-contents w-auto rate">${employee.salaryRate}</td>
+        <td class="tbl-contents w-auto"><select class="day sun"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select></td>
+        <td class="tbl-contents w-auto"><select class="day mon"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select></td>
+        <td class="tbl-contents w-auto"><select class="day tue"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select></td>
+        <td class="tbl-contents w-auto"><select class="day wed"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select></td>
+        <td class="tbl-contents w-auto"><select class="day thu"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select></td>
+        <td class="tbl-contents w-auto"><select class="day fri"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select></td>
+        <td class="tbl-contents w-auto"><select class="day sat"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select></td>
+        <td class="tbl-contents w-auto total">0</td>
+        <td class="tbl-contents w-auto netTotal">0</td>
         <td></td>
         <td></td>
         <td></td>
         <td></td>
       `;
       tableBody.appendChild(row);
+
+      // Add event listeners to all selects in this row
+      const selects = row.querySelectorAll("select.day");
+      const totalCell = row.querySelector(".total");
+      const netTotal = row.querySelector(".netTotal");
+      const rateCell = row.querySelector(".rate");
+
+      const rate = parseFloat(rateCell.textContent);
+      console.log(rate);
+
+      selects.forEach((select) => {
+        select.addEventListener("input", () => {
+          let sum = 0;
+          selects.forEach((s) => (sum += parseFloat(s.value) || 0));
+          totalCell.textContent = sum;
+          netTotal.textContent = sum * rate;
+        });
+      });
     });
   } catch (error) {
     console.error("Error fetching employees:", error);
   }
-}
-
-async function totalHours(){
-
 }
 
 document.addEventListener("DOMContentLoaded", loadProjectEmployees);

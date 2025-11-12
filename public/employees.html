@@ -63,7 +63,7 @@
         <form id="employeeForm" enctype="multipart/form-data">
           <!-- Biodata form -->
 
-          <div class="form-step active" id="step1">
+          <div class="form-step active" id="addStep1">
             <div class="form-floating">
               <input
                 type="text"
@@ -108,20 +108,20 @@
                       class="form-check-input"
                       type="radio"
                       name="addSex"
-                      id="addSex"
+                      id="addSexMale"
                       value="Male"
                     />
-                    <label class="form-check-label" for="Male">Male</label>
+                    <label class="form-check-label" for="addSexMale">Male</label>
                   </div>
                   <div class="form-check form-check-inline">
                     <input
                       class="form-check-input"
                       type="radio"
                       name="addSex"
-                      id="addSex"
+                      id="addSexFemale"
                       value="Female"
                     />
-                    <label class="form-check-label" for="Female">Female</label>
+                    <label class="form-check-label" for="addSexFemale">Female</label>
                   </div>
                 </div>
               </div>
@@ -177,13 +177,13 @@
               </div>
             </div>
 
-            <button class="btn btn-primary" type="button" onclick="nextStep(2)">
+            <button class="btn btn-primary" type="button" onclick="nextStep('add', 2)">
               Next
             </button>
           </div>
 
           <!-- Supporting documents form -->
-          <div class="form-step" id="step2">
+          <div class="form-step" id="addStep2">
             <div class="mb-3">
               <label for="resume"><strong>Resume:</strong></label>
               <input
@@ -217,16 +217,16 @@
               /></br>
             </div>
 
-            <button class="btn btn-primary" type="button" onclick="prevStep(1)">
+            <button class="btn btn-primary" type="button" onclick="prevStep('add', 1)">
               Back
             </button>
-            <button class="btn btn-primary" type="button" onclick="nextStep(3)">
+            <button class="btn btn-primary" type="button" onclick="nextStep('add', 3)">
               Next
             </button>
           </div>
 
           <!-- Government ID's and number form -->
-          <div class="form-step" id="step3">
+          <div class="form-step" id="addStep3">
 
             <div class="form-floating">
               <input
@@ -269,7 +269,7 @@
             </div>
 
 
-            <button class="btn btn-primary" type="button" onclick="nextStep(2)">
+            <button class="btn btn-primary" type="button" onclick="prevStep('add', 2)">
               Back
             </button>
             <button class="btn btn-success" type="submit">Save</button>
@@ -427,7 +427,7 @@
         <form id="editEmployeeForm">
           <!-- Biodata form -->
 
-          <div class="form-step active" id="step1">
+          <div class="form-step active" id="editStep1">
             <div class="form-floating">
               <input
                 type="text"
@@ -472,20 +472,20 @@
                       class="form-check-input"
                       type="radio"
                       name="editSex"
-                      id="editSex"
+                      id="editSexMale"
                       value="Male"
                     />
-                    <label class="form-check-label" for="Male">Male</label>
+                    <label class="form-check-label" for="editSexMale">Male</label>
                   </div>
                   <div class="form-check form-check-inline">
                     <input
                       class="form-check-input"
                       type="radio"
                       name="editSex"
-                      id="editSex"
+                      id="editSexFemale"
                       value="Female"
                     />
-                    <label class="form-check-label" for="Female">Female</label>
+                    <label class="form-check-label" for="editSexFemale">Female</label>
                   </div>
                 </div>
               </div>
@@ -541,50 +541,56 @@
               </div>
             </div>
 
-            <button class="btn btn-primary" type="button" onclick="nextStep(2)">
+            <button class="btn btn-primary" type="button" onclick="nextStep('edit', 2)">
               Next
             </button>
           </div>
 
           <!-- Supporting documents form -->
-          <div class="form-step" id="step2">
+          <div class="form-step" id="editStep2">
             <div class="mb-3">
-              <label for="resume"><strong>Resume:</strong></label>
+              <label for="editResume"><strong>Resume:</strong></label>
               <input
                 type="file"
                 class="form-control"
                 aria-label="file example"
+                name="editResume"
+                id="editResume"
               /></br>
             </div>
 
             <div class="mb-3">
-              <label for="birthCert"><strong>Birth Certificate:</strong></label>
+              <label for="editBirthCert"><strong>Birth Certificate:</strong></label>
               <input
                 type="file"
                 class="form-control"
                 aria-label="file example"
+                name="editBirthCert"
+                id="editBirthCert"
               /></br>
             </div>
             
             <div class="mb-3">
-              <label for="policeClear"><strong>Police Clearance:</strong></label>
+              <label for="editPoliceClear"><strong>Police Clearance:</strong></label>
               <input
                 type="file"
                 class="form-control"
                 aria-label="file example"
+                name="editPoliceClear"
+                id="editPoliceClear"
               /></br>
             </div>
 
-            <button class="btn btn-primary" type="button" onclick="prevStep(1)">
+            <button class="btn btn-primary" type="button" onclick="prevStep('edit', 1)">
               Back
             </button>
-            <button class="btn btn-primary" type="button" onclick="nextStep(3)">
+            <button class="btn btn-primary" type="button" onclick="nextStep('edit', 3)">
               Next
             </button>
           </div>
 
           <!-- Government ID's and number form -->
-          <div class="form-step" id="step3">
+          <div class="form-step" id="editStep3">
 
             <div class="form-floating">
               <input
@@ -627,7 +633,7 @@
             </div>
 
 
-            <button class="btn btn-primary" type="button" onclick="nextStep(2)">
+            <button class="btn btn-primary" type="button" onclick="prevStep('edit', 2)">
               Back
             </button>
             <button class="btn btn-success" type="submit">Save</button>
@@ -658,6 +664,7 @@
         </form>
       </div>
     </div>
+  
   </div>
     
     <script src="/js/employees.js"></script>
