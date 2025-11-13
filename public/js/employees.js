@@ -164,19 +164,19 @@ async function editEmployee(id) {
     const employee = await response.json();
 
     document.getElementById("editName").value = employee.name;
-    document.getElementById("viewAddress").value = employee.address;
-    document.getElementById("viewCivilStatus").value = employee.civilStatus;
-    document.getElementById("viewSex").value = employee.sex;
-    document.getElementById("viewBirthday").value =
+    document.getElementById("editAddress").value = employee.address;
+    document.getElementById("editCivilStatus").value = employee.civilStatus;
+    document.getElementById("editSex").value = employee.sex;
+    document.getElementById("editBirthday").value =
       employee.birthday.split("T")[0];
-    document.getElementById("viewContactNum").value = employee.contactNum;
-    document.getElementById("viewPosition").value = employee.position;
-    document.getElementById("viewSalaryRate").value = employee.salaryRate;
-    document.getElementById("viewSSSNum").value = employee.sssNum || "N/A";
-    document.getElementById("viewTinNum").value = employee.tinNum || "N/A";
-    document.getElementById("viewPagibigNum").value =
+    document.getElementById("editContactNum").value = employee.contactNum;
+    document.getElementById("editPosition").value = employee.position;
+    document.getElementById("editSalaryRate").value = employee.salaryRate;
+    document.getElementById("editSSSNum").value = employee.sssNum || "N/A";
+    document.getElementById("editTinNum").value = employee.tinNum || "N/A";
+    document.getElementById("editPagibigNum").value =
       employee.pagibigNum || "N/A";
-    document.getElementById("viewPhilHealthNum").value =
+    document.getElementById("editPhilHealthNum").value =
       employee.philHealthNum || "N/A";
 
     document.getElementById("editPopup").style.display = "flex";
@@ -190,13 +190,13 @@ async function updateEmployee(event, id) {
 
   const name = document.getElementById("editName").value;
   const position = document.getElementById("editPosition").value;
-  const salary = document.getElementById("editSalary").value;
+  const salaryRate = document.getElementById("editSalaryRate").value;
 
   try {
     const response = await fetch(`http://localhost:8000/employees/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, position, salary }),
+      body: JSON.stringify({ name, position, salaryRate }),
     });
 
     if (response.ok) {
