@@ -13,8 +13,13 @@ const payrollSchema = new mongoose.Schema({
     fri: Number,
     sat: Number,
   },
-  cashAdvance: Number,
-  cashAdvanceBalance: Number,
+  cashAdvances: [
+    {
+      amount: Number,
+      date: { type: Date, default: Date.now },
+      description: String,
+    },
+  ],
 });
 
 const payrolls = mongoose.model("payrolls", payrollSchema);

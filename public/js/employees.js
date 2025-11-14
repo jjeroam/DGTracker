@@ -202,6 +202,9 @@ async function updateEmployee(event, id) {
     if (response.ok) {
       alert("Employee updated successfully!");
       document.getElementById("editPopup").style.display = "none";
+      if (typeof loadEmployees === "function") {
+        await loadEmployees();
+      }
     } else {
       alert("Failed to update employee.");
     }
