@@ -52,9 +52,8 @@ window.onclick = function (event) {
 };
 
 document.getElementById("projectForm").addEventListener("submit", async (e) => {
-  e.preventDefault(); // prevent page refresh
+  e.preventDefault();
 
-  // Collect form data
   const projectData = {
     name: document.getElementById("name").value,
     location: document.getElementById("location").value,
@@ -83,13 +82,10 @@ document.getElementById("projectForm").addEventListener("submit", async (e) => {
   }
 });
 
-// view project details
 async function viewProject(id) {
   try {
     const res = await fetch(`http://localhost:8000/projects/${id}`);
     const data = await res.json();
-    // Fill the popup fields with project data
-    // document.getElementById("viewId").textContent = data._id;
     document.getElementById("viewName").textContent = data.name;
     document.getElementById("viewClient").textContent = data.client;
     document.getElementById("viewLocation").textContent = data.location;
@@ -144,14 +140,12 @@ async function viewProject(id) {
       });
     }
 
-    // Show the popup
     document.getElementById("viewProjectPopup").style.display = "flex";
   } catch (error) {
     console.error("Error loading project:", error);
   }
 }
 
-// edit project details
 let currentProjectId = null;
 
 async function editProject(id) {
@@ -212,7 +206,6 @@ async function deleteProject(id) {
 
       if (response.ok) {
         alert("Project deleted successfully!");
-        // Reload or refresh table data
         loadProjects();
       } else {
         alert("Failed to delete project.");

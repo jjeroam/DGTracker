@@ -15,7 +15,6 @@ async function loadProjectEmployees() {
     employees.forEach((employee, index) => {
       const row = document.createElement("tr");
 
-      // Use classes instead of IDs for daily selects
       row.innerHTML = `
         <td class="tbl-contents w-auto">${employee.name}</td>
         <td class="tbl-contents w-auto">${employee.position}</td>
@@ -36,7 +35,6 @@ async function loadProjectEmployees() {
       `;
       tableBody.appendChild(row);
 
-      // Add event listeners to all selects in this row
       const selects = row.querySelectorAll("select.day");
       const totalCell = row.querySelector(".total");
       const netTotal = row.querySelector(".netTotal");

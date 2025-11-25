@@ -7,9 +7,9 @@ async function loadPayrollProjects() {
     const projects = await response.json();
 
     const container = document.getElementById("payrollCardsContainer");
-    container.innerHTML = ""; // Clear previous content
+    container.innerHTML = "";
 
-    // Create the Bootstrap row wrapper
+
     const row = document.createElement("div");
     row.classList.add("row", "mt-4");
 
@@ -32,11 +32,10 @@ async function loadPayrollProjects() {
       row.appendChild(card);
     });
 
-    // Add the row inside your container
     container.appendChild(row);
   } catch (error) {
     console.error("Error loading projects:", error);
   }
 }
-// Call the function when the page loads
+
 document.addEventListener("DOMContentLoaded", loadPayrollProjects);

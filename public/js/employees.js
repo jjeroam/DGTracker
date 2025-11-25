@@ -59,7 +59,6 @@ document
     const form = e.target;
     const formData = new FormData();
 
-    // Append text fields manually
     formData.append("name", document.getElementById("addName").value);
     formData.append("address", document.getElementById("addAddress").value);
     formData.append(
@@ -123,8 +122,6 @@ async function viewEmployee(id) {
   try {
     const res = await fetch(`http://localhost:8000/employees/${id}`);
     const data = await res.json();
-    // Fill the popup fields with employee data
-    // document.getElementById("viewId").textContent = data._id;
     document.getElementById("viewName").textContent = data.name;
     document.getElementById("viewAddress").textContent = data.address;
     document.getElementById("viewCivilStatus").textContent = data.civilStatus;
@@ -145,7 +142,6 @@ async function viewEmployee(id) {
     document.getElementById("viewLocation").textContent =
       data.location?.[0]?.name;
 
-    // Show the popup
     document.getElementById("viewEmployeePopup").style.display = "flex";
   } catch (error) {
     console.error("Error loading employee:", error);
@@ -222,7 +218,6 @@ async function deleteEmployee(id) {
 
       if (response.ok) {
         alert("Employee deleted successfully!");
-        // Reload or refresh table data
         loadEmployees();
       } else {
         alert("Failed to delete employee.");
@@ -266,7 +261,6 @@ document
     }
   });
 
-// Close popup
 function closePopup() {
   document.getElementById("viewEmployeePopup").style.display = "none";
   document.getElementById("editPopup").style.display = "none";
@@ -285,8 +279,8 @@ async function loadProjects(selectId) {
 
     projects.forEach((project) => {
       const option = document.createElement("option");
-      option.value = project._id; // store ObjectId
-      option.textContent = project.name; // show readable name
+      option.value = project._id;
+      option.textContent = project.name;
       select.appendChild(option);
     });
   } catch (error) {
@@ -317,7 +311,6 @@ function prevStep(prefix, step) {
 function downloadFile(filename) {
   const fileUrl = `http://localhost:8000/uploads/${filename}`;
 
-  // This forces the browser to download it directly
   const a = document.createElement("a");
   a.href = fileUrl;
   a.download = filename;
